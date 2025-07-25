@@ -18,7 +18,7 @@ public class MainController implements MainView {
         mainGUI.closeMainGUI();
     }
 
-    public void test(){
+    public void setSettingsGUI(){
         settingsController.setSettingsGUIVisible();
     }
 
