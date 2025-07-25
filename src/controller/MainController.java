@@ -4,7 +4,7 @@ import view.MainGUI;
 
 public class MainController implements MainView {
     private MainGUI mainGUI;
-    private SettingsController settingsController = new SettingsController();
+    private final SettingsController settingsController = new SettingsController();
 
     public void setMainGUI(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
