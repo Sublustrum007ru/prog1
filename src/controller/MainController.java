@@ -4,7 +4,6 @@ import view.MainGUI;
 
 public class MainController implements MainView {
     private MainGUI mainGUI;
-    private final SettingsController settingsController = new SettingsController();
 
     public void setMainGUI(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
@@ -16,10 +15,6 @@ public class MainController implements MainView {
 
     public void setMainGUIVisible() {
         mainGUI.closeMainGUI();
-    }
-
-    public void setSettingsGUI(){
-        settingsController.setSettingsGUIVisible();
     }
 
     @Override

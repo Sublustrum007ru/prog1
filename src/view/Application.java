@@ -1,7 +1,6 @@
 package view;
 
 import controller.MainController;
-import controller.SettingsController;
 
 public class Application{
     public static void run(){ 
@@ -13,11 +12,6 @@ public class Application{
         mainContorller.setMainGUI(mainGUI);
         mainGUI.setMainController(mainContorller);
         mainGUI.showMessage(helloMSG);
-
-        SettingsGUI settingsGUI = new SettingsGUI();
-        SettingsController settingsController = new SettingsController();
-        settingsController.setSettingsGUI(settingsGUI);
-        settingsGUI.setSettingsController(settingsController);
 
     } 
     public static void promt(String str){ 
