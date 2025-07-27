@@ -34,7 +34,6 @@ public class MainController implements MainView, Operation {
 
     @Override
     public List<SiteSettings> readFile(String path) {
-        mainGUI.showMessage("********* Начало загрузки данных из файла: " + path);
         List<SiteSettings> list = new ArrayList<>();
         String siteName;
         String baseURL;
@@ -48,7 +47,7 @@ public class MainController implements MainView, Operation {
                 try {
                     String[] parts = line.split("\\|", -1);
                     if (parts.length < 6) {
-                        mainGUI.showMessage("Ошибка в форсвте строки: " + line);
+                        mainGUI.showMessage("Ошибка в формате строки: " + line);
                         continue;
                     }
                     siteName = parts[0].trim();
@@ -58,9 +57,7 @@ public class MainController implements MainView, Operation {
                     titleSelector = parts[4].trim();
                     priceSelector = parts[5].trim();
                     SiteSettings temp = new SiteSettings(siteName, baseURL, categorySelector, productSelector, titleSelector, priceSelector);
-                    mainGUI.showMessage(">>>>> " + temp + " <<<<<");
                     list.add(temp);
-
                 } catch (Exception e) {
                     mainGUI.showMessage("Ошибка в обработке строки: " + line);
                     e.printStackTrace();

@@ -67,8 +67,7 @@ public class SiteSettings {
 
     @Override
     public String toString() {
-        return String.format("%s | %s | %s | %s | %s | %s", siteURL, baseURL, categorySelector, productSelector, titleSelector, priceSelector
-        );
+        return String.format("%s | %s | %s | %s | %s | %s", siteURL, baseURL, categorySelector, productSelector, titleSelector, priceSelector);
     }
 
 
