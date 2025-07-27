@@ -67,17 +67,7 @@ public class SiteSettings {
 
     @Override
     public String toString() {
-        return String.format(
-                "{" +
-                        ""+"%s"+":" + " {" +
-                            "baseURL" +":" + "%s," +
-                            "categorySelector" + ":" + "%s," +
-                            "productSelector" + ":" + "%s," +
-                            "titleSelector" + ":" + "%s, " +
-                            "priceSelector" + ":" + "%s" +
-                        "}" +
-                "}",
-                siteURL, baseURL, categorySelector, productSelector, titleSelector, priceSelector
+        return String.format("%s | %s | %s | %s | %s | %s", siteURL, baseURL, categorySelector, productSelector, titleSelector, priceSelector
         );
     }
 
