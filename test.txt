@@ -1,0 +1,1 @@
+{adamovanails.shop: {baseURL:https://adamovanails.shop,categorySelector:a[href*='/product-category/'],productSelector:ul.products li.product,titleSelector:.woocommerce-loop-product__title, priceSelector:.woocommerce-Price-amount}}

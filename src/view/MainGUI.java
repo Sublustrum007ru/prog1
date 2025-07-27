@@ -1,11 +1,14 @@
 package view;
 
 import controller.MainController;
+import controller.SiteSettings;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainGUI extends JFrame {
     private MainController mainController;
@@ -13,9 +16,9 @@ public class MainGUI extends JFrame {
     private final int WIDHT = 1000;
     private final int HEIGTH = 500;
 
-    private JPanel headerPanel, footerPanel, head, btnPanel, cfgPanel;
-    private JLabel cfgPanelName, lbBaseUrl, lbCategorySelector, lbProductSelector, lbTitleSelector;
-    private JTextField baseUrl, categorySelector, productSelector, titleSelector, loadPath, savePath;
+    private JPanel headerPanel, footerPanel, head, btnPanel, cfgPanel, cfgSettingsPanel;
+    private JLabel cfgPanelName, lbBaseUrl, lbCategorySelector, lbProductSelector, lbTitleSelector, lbPriceSelector, cfgSiteName;
+    private JTextField baseUrl, categorySelector, productSelector, titleSelector, priceSelector, loadPath, savePath, cfgSiteField;
     private JTextArea log;
     private JButton btnClose, btnStart, btnLoad, btnSave;
 
@@ -51,11 +54,22 @@ public class MainGUI extends JFrame {
         return headerPanel;
     }
 
-    private Component createCfgPanel(){
-        cfgPanel = new JPanel(new GridLayout(2,1));
+    private Component createCfgPanel() {
+        cfgPanel = new JPanel(new GridLayout(3, 1));
         head = new JPanel();
+        cfgSettingsPanel = new JPanel(new GridLayout(3, 4));
+
+        /***
+         * Заголовог панели
+         */
         cfgPanelName = new JLabel("Settings");
-        JPanel cfgFieldPanel = new JPanel(new GridLayout(2,4));
+        head.add(cfgPanelName);
+
+        /***
+         * Панель содержащая настройки для парсинга сайта
+         */
+        cfgSiteName = new JLabel("Site URL");
+        cfgSiteField = new JTextField();
         lbBaseUrl = new JLabel("Base URL");
         baseUrl = new JTextField();
         lbCategorySelector = new JLabel("Category Selector");
@@ -64,37 +78,54 @@ public class MainGUI extends JFrame {
         productSelector = new JTextField();
         lbTitleSelector = new JLabel("Title Selector");
         titleSelector = new JTextField();
-        cfgFieldPanel.add(lbBaseUrl);
-        cfgFieldPanel.add(baseUrl);
-        cfgFieldPanel.add(lbCategorySelector);
-        cfgFieldPanel.add(categorySelector);
-        cfgFieldPanel.add(lbProductSelector);
-        cfgFieldPanel.add(productSelector);
-        cfgFieldPanel.add(lbTitleSelector);
-        cfgFieldPanel.add(titleSelector);
-        head.add(cfgPanelName);
+        lbPriceSelector = new JLabel("Price Selector");
+        priceSelector = new JTextField();
+        cfgSettingsPanel.add(cfgSiteName);
+        cfgSettingsPanel.add(cfgSiteField);
+        cfgSettingsPanel.add(lbBaseUrl);
+        cfgSettingsPanel.add(baseUrl);
+        cfgSettingsPanel.add(lbCategorySelector);
+        cfgSettingsPanel.add(categorySelector);
+        cfgSettingsPanel.add(lbProductSelector);
+        cfgSettingsPanel.add(productSelector);
+        cfgSettingsPanel.add(lbTitleSelector);
+        cfgSettingsPanel.add(titleSelector);
+        cfgSettingsPanel.add(lbPriceSelector);
+        cfgSettingsPanel.add(priceSelector);
+
+        /***
+         * Основная панель настроек
+         */
         cfgPanel.add(head);
-        cfgPanel.add(cfgFieldPanel);
+        cfgPanel.add(cfgSettingsPanel);
+
         return cfgPanel;
     }
 
-    private Component createBtnPanel(){
-        btnPanel = new JPanel(new GridLayout(3,1));
+    private Component createBtnPanel() {
+        btnPanel = new JPanel(new GridLayout(3, 1));
         btnLoad = new JButton("Load");
+        loadPath = new JTextField();
         btnLoad.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainController.message("Загрузка надстроек");
+                mainController.message("Загрузка надстроек.....");
+                mainController.readFile(loadPath.getText());
             }
         });
         btnPanel.add(btnLoad);
-        loadPath = new JTextField();
         btnPanel.add(loadPath);
         btnSave = new JButton("Save");
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainController.message("Сохранение надстроек");
+                mainController.message("Сохранение надстроек......");
+                SiteSettings siteSettings = new SiteSettings(cfgSiteField.getText(), baseUrl.getText(), categorySelector.getText(), productSelector.getText(), titleSelector.getText(), priceSelector.getText());
+                if(loadPath.equals("")){
+                    mainController.writeFile(cfgSiteField.getText(), siteSettings);
+                }else{
+                    mainController.writeFile(loadPath.getText(), siteSettings);
+                }
             }
         });
         btnPanel.add(btnSave);
