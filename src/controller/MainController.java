@@ -72,6 +72,7 @@ public class MainController implements MainView, Operation {
 
     @Override
     public void writeFile(String path, SiteSettings siteSettings) {
+        mainGUI.showMessage(path);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
             if (!isNotEmptySiteSettings(siteSettings)) {
                 mainGUI.showMessage("Все поля должны быть заполнены");

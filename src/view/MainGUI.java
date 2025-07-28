@@ -20,8 +20,8 @@ public class MainGUI extends JFrame {
     private static DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
     private static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd:MM:YYYY");
 
-    private final int WIDHT = 1000;
-    private final int HEIGTH = 500;
+    private final int WIDHT = 1200;
+    private final int HEIGTH = 800;
 
     private JPanel headerPanel, footerPanel, btnPanel, cfgPanel, cfgPanelName, cfgSettingsPanel, dateTimePanel, datePanel, clockPanel;
     private JLabel cfgName, cfgSiteName, lbBaseUrl, lbCategorySelector, lbProductSelector, lbTitleSelector, lbPriceSelector, dateLabel, clockLabel;
@@ -56,6 +56,7 @@ public class MainGUI extends JFrame {
     private Component createHeaderPanel() {
         headerPanel = new JPanel();
         headerPanel.setLayout(new GridLayout(1, 3));
+        headerPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         headerPanel.add(createCfgPanel());
         headerPanel.add(createDateTimePanel());
         headerPanel.add(createBtnPanel());
@@ -64,6 +65,7 @@ public class MainGUI extends JFrame {
 
     private Component createCfgPanel() {
         cfgPanel = new JPanel(new GridLayout(2, 1));
+        cfgPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         cfgPanel.add(createCfgPanelName());
         cfgPanel.add(createCfgSettings());
         return cfgPanel;
@@ -107,7 +109,7 @@ public class MainGUI extends JFrame {
 
     private Component createDateTimePanel() {
         dateTimePanel = new JPanel(new GridLayout(2, 1));
-        dateTimePanel.setSize(new Dimension(10, 10));
+        dateTimePanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         dateTimePanel.add(createDatePanel());
         dateTimePanel.add(cteateClockPanel());
         return dateTimePanel;
@@ -145,6 +147,8 @@ public class MainGUI extends JFrame {
 
     private Component createBtnPanel() {
         btnPanel = new JPanel(new GridLayout(3, 2));
+        btnPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        JPanel loadPanel = new JPanel(new GridLayout(1,2));
         btnLoad = new JButton("Load");
         loadPath = new JTextField(25);
         btnLoad.addActionListener(new ActionListener() {
@@ -163,30 +167,32 @@ public class MainGUI extends JFrame {
                 }
             }
         });
-        btnPanel.add(btnLoad);
-        btnPanel.add(loadPath);
+        loadPanel.add(btnLoad);
+        loadPanel.add(loadPath);
+        btnPanel.add(loadPanel);
+        JPanel savePanel = new JPanel(new GridLayout(1,2));
         btnSave = new JButton("Save");
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainController.message("Сохранение надстроек......");
                 SiteSettings siteSettings = new SiteSettings(siteURL.getText(), baseUrl.getText(), categorySelector.getText(), productSelector.getText(), titleSelector.getText(), priceSelector.getText());
-                if (loadPath.equals("")) {
-                    mainController.writeFile(siteURL.getText(), siteSettings);
+                if (savePath.equals("")) {
+                    mainController.writeFile("default.txt", siteSettings);
                 } else {
-                    mainController.writeFile(loadPath.getText(), siteSettings);
+                    mainController.writeFile(savePath.getText(), siteSettings);
                 }
             }
         });
-        btnPanel.add(btnSave);
         savePath = new JTextField(25);
-        btnPanel.add(savePath);
+        savePanel.add(btnSave);
+        savePanel.add(savePath);
+        btnPanel.add(savePanel);
         btnStart = new JButton("Start");
         btnStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainController.message("Запуск сканирование сайта");
-                mainController.message(dateLabel.getText());
             }
         });
 
