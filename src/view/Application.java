@@ -2,6 +2,7 @@ package view;
 
 import controller.MainController;
 
+
 public class Application{
     public static void run(){ 
         String helloMSG = "Hello World!!!\nMy name is Sublustrum007"; 

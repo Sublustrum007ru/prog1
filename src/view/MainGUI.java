@@ -4,6 +4,8 @@ import controller.MainController;
 import controller.SiteSettings;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +21,7 @@ public class MainGUI extends JFrame {
     private Timer timer;
     private static DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
     private static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd:MM:YYYY");
+    private static Font font = new Font("Times New Roman", Font.BOLD, 14);
 
     private final int WIDHT = 1200;
     private final int HEIGTH = 800;
@@ -55,7 +58,7 @@ public class MainGUI extends JFrame {
 
     private Component createHeaderPanel() {
         headerPanel = new JPanel();
-        headerPanel.setLayout(new GridLayout(1, 3));
+        headerPanel.setLayout(new GridLayout(1, 3, 30,0));
         headerPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         headerPanel.add(createCfgPanel());
         headerPanel.add(createDateTimePanel());
@@ -64,28 +67,42 @@ public class MainGUI extends JFrame {
     }
 
     private Component createCfgPanel() {
-        cfgPanel = new JPanel(new GridLayout(2, 1));
+        String panelName = "Settings";
+        cfgPanel = new JPanel(new GridLayout(1,3));
         cfgPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        cfgPanel.add(createCfgPanelName());
+        cfgPanel.setBorder(setTitleBorder(panelName));
         cfgPanel.add(createCfgSettings());
         return cfgPanel;
     }
 
-    private Component createCfgPanelName() {
-        cfgPanelName = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        cfgName = new JLabel("Settings");
-        cfgPanelName.add(cfgName);
-        return cfgPanelName;
+    private TitledBorder setTitleBorder(String name){
+        Border baseBorder = BorderFactory.createEtchedBorder();
+
+        // Создаем TitledBorder с выравниванием по центру
+        TitledBorder titledBorder = BorderFactory.createTitledBorder(
+                baseBorder,
+                name,
+                TitledBorder.CENTER,    // Горизонтальное выравнивание
+                TitledBorder.TOP,       // Вертикальное положение
+                font // Шрифт
+        );
+        return titledBorder;
     }
 
     private Component createCfgSettings() {
         cfgSettingsPanel = new JPanel(new GridLayout(3, 4));
         cfgSiteName = new JLabel("Site URL");
+        cfgSiteName.setFont(font);
         lbBaseUrl = new JLabel("Base URL");
+        lbBaseUrl.setFont(font);
         lbCategorySelector = new JLabel("Category Selector");
+        lbCategorySelector.setFont(font);
         lbProductSelector = new JLabel("Product Selector");
+        lbProductSelector.setFont(font);
         lbTitleSelector = new JLabel("Title Selector");
+        lbTitleSelector.setFont(font);
         lbPriceSelector = new JLabel("Price Selector");
+        lbPriceSelector.setFont(font);
         siteURL = new JTextField(25);
         baseUrl = new JTextField(25);
         categorySelector = new JTextField(25);
@@ -108,30 +125,29 @@ public class MainGUI extends JFrame {
     }
 
     private Component createDateTimePanel() {
+        String panelName = "Date / Time";
         dateTimePanel = new JPanel(new GridLayout(2, 1));
+        dateTimePanel.setSize(10,10);
         dateTimePanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        dateTimePanel.add(createDatePanel());
-        dateTimePanel.add(cteateClockPanel());
+        dateTimePanel.setBorder(setTitleBorder(panelName));
+        dateTimePanel.add(createDate(), BorderLayout.NORTH);
+        dateTimePanel.add(cteateClock(), BorderLayout.CENTER);
         return dateTimePanel;
     }
 
-    private Component createDatePanel() {
-        datePanel = new JPanel();
-        dateLabel = new JLabel();
-        dateLabel.setFont(new Font("Time New Roman", Font.PLAIN, 14));
+    private Component createDate() {
+        dateLabel = new JLabel("",SwingConstants.CENTER);
         LocalDate date = LocalDate.now();
         dateLabel.setText(date.format(DATE_FORMATTER));
-        datePanel.add(dateLabel);
-        return datePanel;
+        dateLabel.setFont(font);
+        return dateLabel;
     }
 
-    private Component cteateClockPanel() {
-        clockPanel = new JPanel();
-        clockLabel = new JLabel();
-        clockLabel.setFont(new Font("Time New Roman", Font.PLAIN, 14));
-        clockPanel.add(clockLabel);
+    private Component cteateClock() {
+        clockLabel = new JLabel("", SwingConstants.CENTER);
+        clockLabel.setFont(font);
         initTimer();
-        return clockPanel;
+        return clockLabel;
     }
 
     private void initTimer() {
@@ -150,6 +166,7 @@ public class MainGUI extends JFrame {
         btnPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         JPanel loadPanel = new JPanel(new GridLayout(1,2));
         btnLoad = new JButton("Load");
+        btnLoad.setFont(font);
         loadPath = new JTextField(25);
         btnLoad.addActionListener(new ActionListener() {
             @Override
@@ -172,6 +189,7 @@ public class MainGUI extends JFrame {
         btnPanel.add(loadPanel);
         JPanel savePanel = new JPanel(new GridLayout(1,2));
         btnSave = new JButton("Save");
+        btnSave.setFont(font);
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -189,6 +207,7 @@ public class MainGUI extends JFrame {
         savePanel.add(savePath);
         btnPanel.add(savePanel);
         btnStart = new JButton("Start");
+        btnStart.setFont(font);
         btnStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -202,12 +221,14 @@ public class MainGUI extends JFrame {
 
     private Component createLog() {
         log = new JTextArea();
+        log.setFont(font);
         return log;
     }
 
     private Component createFooterPanel() {
         footerPanel = new JPanel();
         btnClose = new JButton("CLOSE");
+        btnClose.setFont(font);
         btnClose.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
