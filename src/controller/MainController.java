@@ -67,12 +67,10 @@ public class MainController implements MainView, Operation {
             mainGUI.showMessage("Ошибка чтения файла: " + e.getMessage());
         }
         return list;
-
     }
 
     @Override
     public void writeFile(String path, SiteSettings siteSettings) {
-        mainGUI.showMessage(path);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
             if (!isNotEmptySiteSettings(siteSettings)) {
                 mainGUI.showMessage("Все поля должны быть заполнены");

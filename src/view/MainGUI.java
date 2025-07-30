@@ -26,8 +26,8 @@ public class MainGUI extends JFrame {
     private final int WIDHT = 1200;
     private final int HEIGTH = 800;
 
-    private JPanel headerPanel, footerPanel, btnPanel, cfgPanel, cfgPanelName, cfgSettingsPanel, dateTimePanel, datePanel, clockPanel;
-    private JLabel cfgName, cfgSiteName, lbBaseUrl, lbCategorySelector, lbProductSelector, lbTitleSelector, lbPriceSelector, dateLabel, clockLabel;
+    private JPanel headerPanel, footerPanel, btnPanel, cfgPanel, cfgSettingsPanel, dateTimePanel;
+    private JLabel cfgSiteName, lbBaseUrl, lbCategorySelector, lbProductSelector, lbTitleSelector, lbPriceSelector, dateLabel, clockLabel;
     private JTextField siteURL, baseUrl, categorySelector, productSelector, titleSelector, priceSelector, loadPath, savePath;
     private JTextArea log;
     private JButton btnClose, btnStart, btnLoad, btnSave;
@@ -42,6 +42,14 @@ public class MainGUI extends JFrame {
         setVisible(true);
     }
 
+    /***
+     * Задаются параметры создаваемого окна.
+     * setTitle() - Имя окна, выводиться как обычно. В рамке окна.
+     * setSize(int WIDHT, int HEIGTH) - Размеры окна. Указываются в целых числах.
+     * setResizable() - Если в скобках написано "true", то пользваотелю разрешено изменять размер окна. Если "false", то запрещено.
+     * setLocationRelativeTo(null) - Позиионирование создоваемого окна. "null" - позиционирование опцентру экрана.
+     * setDefaultCloseOperaion() - Параметр задающий дествия при закрытие окна.
+     */
     private void settings() {
         setTitle("prog1");
         setSize(WIDHT, HEIGTH);
@@ -58,7 +66,8 @@ public class MainGUI extends JFrame {
 
     private Component createHeaderPanel() {
         headerPanel = new JPanel();
-        headerPanel.setLayout(new GridLayout(1, 3, 30,0));
+//        headerPanel.setLayout(new GridLayout(1, 3, 30,0));
+        headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.X_AXIS));
         headerPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         headerPanel.add(createCfgPanel());
         headerPanel.add(createDateTimePanel());
@@ -68,23 +77,28 @@ public class MainGUI extends JFrame {
 
     private Component createCfgPanel() {
         String panelName = "Settings";
-        cfgPanel = new JPanel(new GridLayout(1,3));
+        cfgPanel = new JPanel(new GridLayout(1, 3));
         cfgPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         cfgPanel.setBorder(setTitleBorder(panelName));
         cfgPanel.add(createCfgSettings());
         return cfgPanel;
     }
 
-    private TitledBorder setTitleBorder(String name){
+    private TitledBorder setTitleBorder(String name) {
         Border baseBorder = BorderFactory.createEtchedBorder();
 
-        // Создаем TitledBorder с выравниванием по центру
+        /***
+         * name - Имя панели.
+         * TitleBorder.CENTER - Выравнивание по горизонтале
+         * TitleBorder.TOP - Выравнивание по вертикали
+         * font- Шрифт. В данном примере задан в самом начале.
+         */
         TitledBorder titledBorder = BorderFactory.createTitledBorder(
                 baseBorder,
                 name,
-                TitledBorder.CENTER,    // Горизонтальное выравнивание
-                TitledBorder.TOP,       // Вертикальное положение
-                font // Шрифт
+                TitledBorder.CENTER,
+                TitledBorder.TOP,
+                font
         );
         return titledBorder;
     }
@@ -103,12 +117,12 @@ public class MainGUI extends JFrame {
         lbTitleSelector.setFont(font);
         lbPriceSelector = new JLabel("Price Selector");
         lbPriceSelector.setFont(font);
-        siteURL = new JTextField(25);
-        baseUrl = new JTextField(25);
-        categorySelector = new JTextField(25);
-        productSelector = new JTextField(25);
-        titleSelector = new JTextField(25);
-        priceSelector = new JTextField(25);
+        siteURL = new JTextField(50);
+        baseUrl = new JTextField(50);
+        categorySelector = new JTextField(50);
+        productSelector = new JTextField(50);
+        titleSelector = new JTextField(50);
+        priceSelector = new JTextField(50);
         cfgSettingsPanel.add(cfgSiteName);
         cfgSettingsPanel.add(siteURL);
         cfgSettingsPanel.add(lbBaseUrl);
@@ -125,9 +139,8 @@ public class MainGUI extends JFrame {
     }
 
     private Component createDateTimePanel() {
-        String panelName = "Date / Time";
+        String panelName = "Date";
         dateTimePanel = new JPanel(new GridLayout(2, 1));
-        dateTimePanel.setSize(10,10);
         dateTimePanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         dateTimePanel.setBorder(setTitleBorder(panelName));
         dateTimePanel.add(createDate(), BorderLayout.NORTH);
@@ -136,7 +149,7 @@ public class MainGUI extends JFrame {
     }
 
     private Component createDate() {
-        dateLabel = new JLabel("",SwingConstants.CENTER);
+        dateLabel = new JLabel("", SwingConstants.CENTER);
         LocalDate date = LocalDate.now();
         dateLabel.setText(date.format(DATE_FORMATTER));
         dateLabel.setFont(font);
@@ -164,7 +177,7 @@ public class MainGUI extends JFrame {
     private Component createBtnPanel() {
         btnPanel = new JPanel(new GridLayout(3, 2));
         btnPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        JPanel loadPanel = new JPanel(new GridLayout(1,2));
+        JPanel loadPanel = new JPanel(new GridLayout(1, 2));
         btnLoad = new JButton("Load");
         btnLoad.setFont(font);
         loadPath = new JTextField(25);
@@ -187,19 +200,19 @@ public class MainGUI extends JFrame {
         loadPanel.add(btnLoad);
         loadPanel.add(loadPath);
         btnPanel.add(loadPanel);
-        JPanel savePanel = new JPanel(new GridLayout(1,2));
+        JPanel savePanel = new JPanel(new GridLayout(1, 2));
         btnSave = new JButton("Save");
         btnSave.setFont(font);
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String patch = savePath.getText();
                 mainController.message("Сохранение надстроек......");
                 SiteSettings siteSettings = new SiteSettings(siteURL.getText(), baseUrl.getText(), categorySelector.getText(), productSelector.getText(), titleSelector.getText(), priceSelector.getText());
-                if (savePath.equals("")) {
-                    mainController.writeFile("default.txt", siteSettings);
-                } else {
-                    mainController.writeFile(savePath.getText(), siteSettings);
+                if (patch.isEmpty()) {
+                    patch = "default.txt";
                 }
+                mainController.writeFile(patch, siteSettings);
             }
         });
         savePath = new JTextField(25);
