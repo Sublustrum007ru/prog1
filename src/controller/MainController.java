@@ -67,7 +67,6 @@ public class MainController implements MainView, Operation {
             mainGUI.showMessage("Ошибка чтения файла: " + e.getMessage());
         }
         return list;
-
     }
 
     @Override
