@@ -1,6 +1,7 @@
 package view;
 
 import controller.MainController;
+import view.MyNotes;
 
 
 public class Application{
@@ -13,6 +14,8 @@ public class Application{
         mainContorller.setMainGUI(mainGUI);
         mainGUI.setMainController(mainContorller);
         mainGUI.showMessage(helloMSG);
+
+        new MyNotes();
 
     } 
     public static void promt(String str){ 
