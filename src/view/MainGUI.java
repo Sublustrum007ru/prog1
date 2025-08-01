@@ -9,6 +9,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -186,7 +187,11 @@ public class MainGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 List<SiteSettings> list = new ArrayList<>();
                 mainController.message("Загрузка надстроек.....");
-                list = mainController.readFile(loadPath.getText());
+                try {
+                    list = mainController.readFile(loadPath.getText());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
                 for (SiteSettings temp : list) {
                     siteURL.setText(temp.getSiteURL());
                     baseUrl.setText(temp.getBaseURL());
@@ -206,13 +211,9 @@ public class MainGUI extends JFrame {
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String patch = savePath.getText();
                 mainController.message("Сохранение надстроек......");
                 SiteSettings siteSettings = new SiteSettings(siteURL.getText(), baseUrl.getText(), categorySelector.getText(), productSelector.getText(), titleSelector.getText(), priceSelector.getText());
-                if (patch.isEmpty()) {
-                    patch = "default.txt";
-                }
-                mainController.writeFile(patch, siteSettings);
+                mainController.writeFile(savePath.getText(), siteSettings);
             }
         });
         savePath = new JTextField(25);
@@ -253,7 +254,7 @@ public class MainGUI extends JFrame {
     }
 
     public void closeMainGUI() {
-        dispose();
+        System.exit(0);
     }
 
     public void showMessage(String message) {

@@ -14,9 +14,14 @@ import static util.Validator.isNotEmptySiteSettings;
 
 public class MainController implements MainView, Operation {
     private MainGUI mainGUI;
+    private FileOperation fileOperation;
 
     public void setMainGUI(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
+    }
+
+    public void setFileOperation(FileOperation fileOperation){
+        this.fileOperation = fileOperation;
     }
 
     public void message(String message) {
@@ -32,8 +37,9 @@ public class MainController implements MainView, Operation {
         mainGUI.showMessage(message);
     }
 
+
     @Override
-    public List<SiteSettings> readFile(String path) {
+    public List<SiteSettings> readFile(String patch) throws IOException {
         List<SiteSettings> list = new ArrayList<>();
         String siteName;
         String baseURL;
@@ -42,12 +48,12 @@ public class MainController implements MainView, Operation {
         String titleSelector;
         String priceSelector;
         try {
-            List<String> lines = Files.readAllLines(Paths.get(path));
+            List<String> lines = Files.readAllLines(Paths.get(patch));
             for (String line : lines) {
                 try {
                     String[] parts = line.split("\\|", -1);
                     if (parts.length < 6) {
-                        mainGUI.showMessage("Ошибка в формате строки: " + line);
+                        message("Ошибка в формате строки: " + line);
                         continue;
                     }
                     siteName = parts[0].trim();
@@ -59,27 +65,35 @@ public class MainController implements MainView, Operation {
                     SiteSettings temp = new SiteSettings(siteName, baseURL, categorySelector, productSelector, titleSelector, priceSelector);
                     list.add(temp);
                 } catch (Exception e) {
-                    mainGUI.showMessage("Ошибка в обработке строки: " + line);
+                    message("Ошибка в обработке строки: " + line);
                     e.printStackTrace();
                 }
             }
         } catch (IOException e) {
-            mainGUI.showMessage("Ошибка чтения файла: " + e.getMessage());
+            message("Ошибка чтения файла: " + e.getMessage());
         }
+        System.out.println(fileOperation.readFile(patch));
         return list;
     }
 
     @Override
-    public void writeFile(String path, SiteSettings siteSettings) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
+    public void writeFile(String patch, SiteSettings siteSettings) {
+        FileOperation fileOperation = new FileOperation();
+        if (patch.isEmpty()) {
+            patch = "default.txt";
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(patch))) {
             if (!isNotEmptySiteSettings(siteSettings)) {
-                mainGUI.showMessage("Все поля должны быть заполнены");
+                message("Все поля должны быть заполнены");
             } else {
                 writer.write(siteSettings.toString());
-                mainGUI.showMessage("Succesful");
+
+//                fileOperation.writeFile(patch, siteSettings);
+
+                message("Succesful");
             }
         } catch (IOException e) {
-            mainGUI.showMessage("WARNIG " + e.getMessage());
+            message("WARNIG " + e.getMessage());
         }
 
     }

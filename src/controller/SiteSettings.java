@@ -1,5 +1,7 @@
 package controller;
 
+import view.MainGUI;
+
 public class SiteSettings {
     private String siteURL;
     private String baseURL;
@@ -64,6 +66,7 @@ public class SiteSettings {
     public void setPriceSelector(String priceSelector) {
         this.priceSelector = priceSelector;
     }
+
 
     @Override
     public String toString() {
