@@ -19,7 +19,8 @@ public class MyNotes extends JFrame {
 
     private void createPanels(){
         JTextArea log = new JTextArea();
-        log.setText("Добавить два отдельных файла для\nсохранения и чтения из / в файл");
+        String message = "Переписать чтение из ыала,\nтак что если файла нет,\nпросто вывести сообщение";
+        log.setText(message);
         add(log);
     }
 }
