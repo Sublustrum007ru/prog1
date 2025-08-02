@@ -1,12 +1,9 @@
 package view;
 
-import controller.FileOperation;
+import controller.impl.FileOperation;
 import controller.FindTime;
 import controller.MainController;
 import controller.SiteSettings;
-import view.MyNotes;
-
-import java.io.File;
 
 
 public class Application{

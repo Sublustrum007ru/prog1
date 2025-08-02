@@ -1,8 +1,11 @@
 package controller;
 
+import controller.impl.FileOperation;
 import view.MainGUI;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -13,17 +16,19 @@ public class MainController implements MainView {
     private FindTime time;
     private Timer timer = new Timer();
 
-        public void setMainGUI(MainGUI mainGUI) {
+    public void setMainGUI(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
     }
 
-    public void setFileOperation(FileOperation fileOperation){
+    public void setFileOperation(FileOperation fileOperation) {
         this.fileOperation = fileOperation;
     }
-    public void setSiteSettings(SiteSettings siteSettings){
+
+    public void setSiteSettings(SiteSettings siteSettings) {
         this.siteSettings = siteSettings;
     }
-    public void setTime(FindTime time){
+
+    public void setTime(FindTime time) {
         this.time = time;
     }
 
@@ -50,9 +55,10 @@ public class MainController implements MainView {
         mainGUI.setTitleSelector(temp.getTitleSelector());
         mainGUI.setPriceSelector(temp.getPriceSelector());
         message("Succesfull");
+
     }
 
-    public void writeSettings(){
+    public void writeSettings() {
         message("Сохранение надстроек......");
 
         fileOperation.writeFile(mainGUI.getSavePath(), new SiteSettings(
@@ -67,16 +73,16 @@ public class MainController implements MainView {
 
     }
 
-    public void saveSettingsToJson(){
+    public void saveSettingsToJson() {
         message("Сохранение надстроек в файл .json ......");
     }
 
-    public void startParce(){
+    public void startParce() {
         message("Начато сканирование.....");
         startTimer(1000, "Сканирование окончено");
     }
 
-    public void startTimer(int time, String message){
+    public void startTimer(int time, String message) {
         TimerTask task1 = new TimerTask() {
             @Override
             public void run() {
