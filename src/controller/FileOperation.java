@@ -1,71 +1,71 @@
 package controller;
 
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 import static util.Validator.isNotEmptySiteSettings;
 
-public class FileOperation implements Operation{
+public class FileOperation implements Operation {
+    private MainController mainController = new MainController();
+
+    private final String PATH = "src/siteSettings/";
+    private final String DEFAULT_FILE = "default";
+
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
+
     @Override
-    public List<SiteSettings> readFile(String path) throws IOException {
-        List<SiteSettings> list = new ArrayList<>();
-        String siteName;
-        String baseURL;
-        String categorySelector;
-        String productSelector;
-        String titleSelector;
-        String priceSelector;
+    public String[] readFile(String path) throws IOException {
+        String[] result = null;
+        if(path.isEmpty()){
+            if (!Files.exists(Paths.get(PATH + DEFAULT_FILE))) {
+                mainController.message("Файл настроек не найден. Используются значения по умолчанию.");
+                return result = new String[]{"","","","","",""}; // Конструктор по умолчанию
+            }
+            path = DEFAULT_FILE;
+        }
+        String temp = null;
         try {
-            List<String> lines = Files.readAllLines(Paths.get(path));
-            for (String line : lines) {
-                try {
-                    String[] parts = line.split("\\|", -1);
-                    if (parts.length < 6) {
-                        System.out.println("Ошибка в формате строки: " + line);
-                        continue;
-                    }
-                    siteName = parts[0].trim();
-                    baseURL = parts[1].trim();
-                    categorySelector = parts[2].trim();
-                    productSelector = parts[3].trim();
-                    titleSelector = parts[4].trim();
-                    priceSelector = parts[5].trim();
-                    SiteSettings temp = new SiteSettings(siteName, baseURL, categorySelector, productSelector, titleSelector, priceSelector);
-                    list.add(temp);
-                } catch (Exception e) {
-                    System.out.println("Ошибка в обработке строки: " + line);
-                    e.printStackTrace();
-                }
+            BufferedReader reader = new BufferedReader(new FileReader(PATH + path + ".txt"));
+            String line = reader.readLine();
+            while (line != null) {
+                temp = line;
+                line = reader.readLine();
+            }
+            reader.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(temp.isEmpty()){
+            result = new String[]{"","","","","",""};
+        }
+        result = temp.split(" \\| ", -1);
+        return result;
+    }
+
+    @Override
+    public void writeFile(String path, SiteSettings siteSettings) {
+        if(path.isEmpty()){
+            path = DEFAULT_FILE;
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter( PATH + path + ".txt"))) {
+            if (!isNotEmptySiteSettings(siteSettings)) {
+                mainController.message("Все поля должны быть заполнены");
+            } else {
+                writer.write(siteSettings.toString());
             }
         } catch (IOException e) {
-            System.out.println("Ошибка чтения файла: " + e.getMessage());
+            mainController.message("WARNIG " + e.getMessage());
         }
-        return list;
-    }
-
-    @Override
-    public void writeFile(String patch, SiteSettings siteSettings) {
-        System.out.println("Test run FileOperation");
-//        if (patch.isEmpty()) {
-//            patch = "FileOperation.txt";
-//        }
-//        try (BufferedWriter writer = new BufferedWriter(new FileWriter(patch))) {
-//            if (!isNotEmptySiteSettings(siteSettings)) {
-//                mainController.message("Test Все поля должны быть заполнены");
-//            } else {
-//                writer.write(siteSettings.toString());
-//                mainController.message("Test Succesful");
-//            }
-//        } catch (IOException e) {
-//            mainController.message("Test WARNIG " + e.getMessage());
-//        }
 
     }
+
 
 }

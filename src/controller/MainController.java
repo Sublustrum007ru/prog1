@@ -2,26 +2,29 @@ package controller;
 
 import view.MainGUI;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import static util.Validator.isNotEmptySiteSettings;
-
-public class MainController implements MainView, Operation {
+public class MainController implements MainView {
     private MainGUI mainGUI;
     private FileOperation fileOperation;
+    private SiteSettings siteSettings;
+    private FindTime time;
+    private Timer timer = new Timer();
 
-    public void setMainGUI(MainGUI mainGUI) {
+        public void setMainGUI(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
     }
 
     public void setFileOperation(FileOperation fileOperation){
         this.fileOperation = fileOperation;
+    }
+    public void setSiteSettings(SiteSettings siteSettings){
+        this.siteSettings = siteSettings;
+    }
+    public void setTime(FindTime time){
+        this.time = time;
     }
 
     public void message(String message) {
@@ -34,67 +37,53 @@ public class MainController implements MainView, Operation {
 
     @Override
     public void showMessage(String message) {
-        mainGUI.showMessage(message);
+        mainGUI.showMessage(time.findTime() + message);
     }
 
+    public void loadSettings() throws IOException {
+        message("Загрузка надстроек.......");
+        SiteSettings temp = siteSettings.createSiteSettings(fileOperation.readFile(mainGUI.getLoadPath()));
+        mainGUI.setSiteURL(temp.getSiteURL());
+        mainGUI.setBaseUrl(temp.getBaseURL());
+        mainGUI.setCategorySelector(temp.getCategorySelector());
+        mainGUI.setProductSelector(temp.getProductSelector());
+        mainGUI.setTitleSelector(temp.getTitleSelector());
+        mainGUI.setPriceSelector(temp.getPriceSelector());
+        message("Succesfull");
+    }
 
-    @Override
-    public List<SiteSettings> readFile(String patch) throws IOException {
-        List<SiteSettings> list = new ArrayList<>();
-        String siteName;
-        String baseURL;
-        String categorySelector;
-        String productSelector;
-        String titleSelector;
-        String priceSelector;
-        try {
-            List<String> lines = Files.readAllLines(Paths.get(patch));
-            for (String line : lines) {
-                try {
-                    String[] parts = line.split("\\|", -1);
-                    if (parts.length < 6) {
-                        message("Ошибка в формате строки: " + line);
-                        continue;
-                    }
-                    siteName = parts[0].trim();
-                    baseURL = parts[1].trim();
-                    categorySelector = parts[2].trim();
-                    productSelector = parts[3].trim();
-                    titleSelector = parts[4].trim();
-                    priceSelector = parts[5].trim();
-                    SiteSettings temp = new SiteSettings(siteName, baseURL, categorySelector, productSelector, titleSelector, priceSelector);
-                    list.add(temp);
-                } catch (Exception e) {
-                    message("Ошибка в обработке строки: " + line);
-                    e.printStackTrace();
-                }
+    public void writeSettings(){
+        message("Сохранение надстроек......");
+
+        fileOperation.writeFile(mainGUI.getSavePath(), new SiteSettings(
+                mainGUI.getSiteURL(),
+                mainGUI.getBaseURL(),
+                mainGUI.getCategoreSelector(),
+                mainGUI.getProductSelector(),
+                mainGUI.getTitleSelector(),
+                mainGUI.getPriceSelector())
+        );
+        startTimer(1000, "timer Succesfull");
+
+    }
+
+    public void saveSettingsToJson(){
+        message("Сохранение надстроек в файл .json ......");
+    }
+
+    public void startParce(){
+        message("Начато сканирование.....");
+        startTimer(1000, "Сканирование окончено");
+    }
+
+    public void startTimer(int time, String message){
+        TimerTask task1 = new TimerTask() {
+            @Override
+            public void run() {
+                message(message);
             }
-        } catch (IOException e) {
-            message("Ошибка чтения файла: " + e.getMessage());
-        }
-        System.out.println(fileOperation.readFile(patch));
-        return list;
+        };
+        timer.schedule(task1, time);
     }
 
-    @Override
-    public void writeFile(String patch, SiteSettings siteSettings) {
-        FileOperation fileOperation = new FileOperation();
-        if (patch.isEmpty()) {
-            patch = "default.txt";
-        }
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(patch))) {
-            if (!isNotEmptySiteSettings(siteSettings)) {
-                message("Все поля должны быть заполнены");
-            } else {
-                writer.write(siteSettings.toString());
-
-//                fileOperation.writeFile(patch, siteSettings);
-
-                message("Succesful");
-            }
-        } catch (IOException e) {
-            message("WARNIG " + e.getMessage());
-        }
-
-    }
 }

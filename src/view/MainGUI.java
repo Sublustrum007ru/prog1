@@ -1,7 +1,6 @@
 package view;
 
 import controller.MainController;
-import controller.SiteSettings;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -13,8 +12,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainGUI extends JFrame {
     private MainController mainController;
@@ -29,12 +26,84 @@ public class MainGUI extends JFrame {
 
     private JPanel headerPanel, footerPanel, btnPanel, cfgPanel, cfgSettingsPanel, dateTimePanel;
     private JLabel cfgSiteName, lbBaseUrl, lbCategorySelector, lbProductSelector, lbTitleSelector, lbPriceSelector, dateLabel, clockLabel;
+
     private JTextField siteURL, baseUrl, categorySelector, productSelector, titleSelector, priceSelector, loadPath, savePath;
     private JTextArea log;
     private JButton btnClose, btnStart, btnLoad, btnSave;
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
+    }
+
+    public void setSiteURL(String str) {
+        siteURL.setText(str);
+    }
+
+    public String getSiteURL() {
+        return siteURL.getText();
+    }
+
+    public void setBaseUrl(String str) {
+        baseUrl.setText(str);
+        ;
+    }
+
+    public String getBaseURL() {
+        return baseUrl.getText();
+    }
+
+    public void setCategorySelector(String str) {
+        categorySelector.setText(str);
+        ;
+    }
+
+    public String getCategoreSelector() {
+        return categorySelector.getText();
+    }
+
+    public void setProductSelector(String str) {
+        productSelector.setText(str);
+        ;
+    }
+
+    public String getProductSelector() {
+        return productSelector.getText();
+    }
+
+    public void setTitleSelector(String str) {
+        titleSelector.setText(str);
+        ;
+    }
+
+    public String getTitleSelector() {
+        return titleSelector.getText();
+    }
+
+    public void setPriceSelector(String str) {
+        priceSelector.setText(str);
+        ;
+    }
+
+    public String getPriceSelector() {
+        return priceSelector.getText();
+    }
+
+    public void setSavePath(String str) {
+        savePath.setText(str);
+        ;
+    }
+
+    public String getSavePath() {
+        return savePath.getText();
+    }
+
+    public void setLoadPatch(String str) {
+        loadPath.setText(str);
+        ;
+    }
+
+    public String getLoadPath() {
+        return loadPath.getText();
     }
 
     public MainGUI() {
@@ -177,6 +246,7 @@ public class MainGUI extends JFrame {
 
     private Component createBtnPanel() {
         btnPanel = new JPanel(new GridLayout(3, 2));
+
         btnPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         JPanel loadPanel = new JPanel(new GridLayout(1, 2));
         btnLoad = new JButton("Load");
@@ -185,50 +255,40 @@ public class MainGUI extends JFrame {
         btnLoad.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                List<SiteSettings> list = new ArrayList<>();
-                mainController.message("Загрузка надстроек.....");
                 try {
-                    list = mainController.readFile(loadPath.getText());
+                    mainController.loadSettings();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
-                }
-                for (SiteSettings temp : list) {
-                    siteURL.setText(temp.getSiteURL());
-                    baseUrl.setText(temp.getBaseURL());
-                    categorySelector.setText(temp.getCategorySelector());
-                    productSelector.setText(temp.getProductSelector());
-                    titleSelector.setText(temp.getTitleSelector());
-                    priceSelector.setText(temp.getPriceSelector());
                 }
             }
         });
         loadPanel.add(btnLoad);
         loadPanel.add(loadPath);
         btnPanel.add(loadPanel);
+
         JPanel savePanel = new JPanel(new GridLayout(1, 2));
         btnSave = new JButton("Save");
         btnSave.setFont(font);
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainController.message("Сохранение надстроек......");
-                SiteSettings siteSettings = new SiteSettings(siteURL.getText(), baseUrl.getText(), categorySelector.getText(), productSelector.getText(), titleSelector.getText(), priceSelector.getText());
-                mainController.writeFile(savePath.getText(), siteSettings);
+                mainController.writeSettings();
+                mainController.saveSettingsToJson();
             }
         });
         savePath = new JTextField(25);
         savePanel.add(btnSave);
         savePanel.add(savePath);
+
         btnPanel.add(savePanel);
         btnStart = new JButton("Start");
         btnStart.setFont(font);
         btnStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainController.message("Запуск сканирование сайта");
+                mainController.startParce();
             }
         });
-
         btnPanel.add(btnStart);
         return btnPanel;
     }

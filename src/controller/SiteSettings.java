@@ -1,6 +1,5 @@
 package controller;
 
-import view.MainGUI;
 
 public class SiteSettings {
     private String siteURL;
@@ -17,6 +16,19 @@ public class SiteSettings {
         this.productSelector = productSelector;
         this.titleSelector = titleSelector;
         this.priceSelector = priceSelector;
+    }
+
+    public SiteSettings() {
+    }
+
+    public SiteSettings createSiteSettings(String[] line) {
+        setSiteURL(line[0]);
+        setBaseURL(line[1]);
+        setCategorySelector(line[2]);
+        setProductSelector(line[3]);
+        setTitleSelector(line[4]);
+        setPriceSelector(line[5]);
+        return this;
     }
 
     public String getSiteURL() {
