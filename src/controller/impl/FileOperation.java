@@ -6,8 +6,6 @@ import controller.Operation;
 import controller.SiteSettings;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import static util.Validator.isNotEmptySiteSettings;
 
@@ -17,6 +15,8 @@ public class FileOperation implements Operation {
     private final String PATH_DIR = "src/siteSettings/";
     private final String DEFAULT_FILE = "default";
     private final String SUFFICS_PATH = ".txt";
+    private int count = 0;
+    private String temp = null;
 
 
     public void setMainController(MainController mainController) {
@@ -26,31 +26,22 @@ public class FileOperation implements Operation {
 
     @Override
     public String[] readFile(String path) throws IOException {
-        String[] result = {"", "", "", "", "", ""};
-        if (!Files.exists(Paths.get(PATH_DIR + path + SUFFICS_PATH))) {
-            String message = "Файл '"  + path + "' не найден. Попытка загрузить надстройки из файла 'default'";
-            mainController.message(message);
+        mainController.message("Чтение из файла. " + PATH_DIR + path + SUFFICS_PATH);
+        String[] result = new String[]{};
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(PATH_DIR + path + SUFFICS_PATH));
+            String line = reader.readLine();
+            while (line!= null) {
+                temp = line;
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
             path = DEFAULT_FILE;
-            String temp = null;
-            try {
-                BufferedReader reader = new BufferedReader(new FileReader(PATH_DIR + path + SUFFICS_PATH));
-                String line = reader.readLine();
-                while (line != null) {
-                    temp = line;
-                    line = reader.readLine();
-                }
-                reader.close();
-            } catch (IOException e) {
-                mainController.message("Файл 'default' настроек не найден. Используются значения по умолчанию.");
-                result = new String[]{"", "", "", "", "", ""};
-            }
-            if (temp == null) {
-                result = new String[]{"", "", "", "", "", ""};
-            }
-            mainController.message("" + temp);
-            result = temp.split(" \\| ", -1);
-            mainController.message("" + result);
+            mainController.message("Файла не существует. Чтение из дефолтного файла. " + PATH_DIR + path + SUFFICS_PATH);
+            readFile(path);
         }
+        result = temp.split(" \\| ", -1);
         return result;
     }
 

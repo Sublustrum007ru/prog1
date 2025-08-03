@@ -33,7 +33,7 @@ public class MainController implements MainView {
     }
 
     public void message(String message) {
-        showMessage(message);
+        showMessage(message+ "\n");
     }
 
     public void setMainGUIVisible() {
@@ -48,7 +48,6 @@ public class MainController implements MainView {
     public void loadSettings() throws IOException {
         message("Загрузка надстроек.......");
         SiteSettings temp = siteSettings.createSiteSettings(fileOperation.readFile(mainGUI.getLoadPath()));
-        message(temp.toString());
         mainGUI.setSiteURL(temp.getSiteURL());
         mainGUI.setBaseUrl(temp.getBaseURL());
         mainGUI.setCategorySelector(temp.getCategorySelector());

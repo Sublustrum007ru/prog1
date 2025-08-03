@@ -46,7 +46,6 @@ public class MainGUI extends JFrame {
 
     public void setBaseUrl(String str) {
         baseUrl.setText(str);
-        ;
     }
 
     public String getBaseURL() {
@@ -55,7 +54,6 @@ public class MainGUI extends JFrame {
 
     public void setCategorySelector(String str) {
         categorySelector.setText(str);
-        ;
     }
 
     public String getCategoreSelector() {
@@ -64,7 +62,6 @@ public class MainGUI extends JFrame {
 
     public void setProductSelector(String str) {
         productSelector.setText(str);
-        ;
     }
 
     public String getProductSelector() {
@@ -73,7 +70,6 @@ public class MainGUI extends JFrame {
 
     public void setTitleSelector(String str) {
         titleSelector.setText(str);
-        ;
     }
 
     public String getTitleSelector() {
@@ -82,7 +78,6 @@ public class MainGUI extends JFrame {
 
     public void setPriceSelector(String str) {
         priceSelector.setText(str);
-        ;
     }
 
     public String getPriceSelector() {
@@ -91,7 +86,6 @@ public class MainGUI extends JFrame {
 
     public void setSavePath(String str) {
         savePath.setText(str);
-        ;
     }
 
     public String getSavePath() {
@@ -118,6 +112,7 @@ public class MainGUI extends JFrame {
      * setSize(int WIDHT, int HEIGTH) - Размеры окна. Указываются в целых числах.
      * setResizable() - Если в скобках написано "true", то пользваотелю разрешено изменять размер окна. Если "false", то запрещено.
      * setLocationRelativeTo(null) - Позиионирование создоваемого окна. "null" - позиционирование опцентру экрана.
+     * setLayout(new BorderLayout()) - Задается какой менеджер компоновки будет использоваться.
      * setDefaultCloseOperaion() - Параметр задающий дествия при закрытие окна.
      */
     private void settings() {
@@ -200,12 +195,12 @@ public class MainGUI extends JFrame {
         lbTitleSelector.setFont(font);
         lbPriceSelector = new JLabel("Price Selector");
         lbPriceSelector.setFont(font);
-        siteURL = new JTextField(50);
-        baseUrl = new JTextField(50);
-        categorySelector = new JTextField(50);
-        productSelector = new JTextField(50);
-        titleSelector = new JTextField(50);
-        priceSelector = new JTextField(50);
+        siteURL = new JTextField(120);
+        baseUrl = new JTextField(120);
+        categorySelector = new JTextField(120);
+        productSelector = new JTextField(120);
+        titleSelector = new JTextField(120);
+        priceSelector = new JTextField(120);
         cfgSettingsPanel.add(cfgSiteName);
         cfgSettingsPanel.add(siteURL);
         cfgSettingsPanel.add(lbBaseUrl);

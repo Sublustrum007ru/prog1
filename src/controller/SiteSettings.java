@@ -1,6 +1,8 @@
 package controller;
 
 
+import java.util.Arrays;
+
 public class SiteSettings {
     private String siteURL;
     private String baseURL;
