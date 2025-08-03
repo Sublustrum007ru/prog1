@@ -29,6 +29,7 @@ public class MainGUI extends JFrame {
 
     private JTextField siteURL, baseUrl, categorySelector, productSelector, titleSelector, priceSelector, loadPath, savePath;
     private JTextArea log;
+    private JScrollPane sp;
     private JButton btnClose, btnStart, btnLoad, btnSave;
 
     public void setMainController(MainController mainController) {
@@ -99,7 +100,6 @@ public class MainGUI extends JFrame {
 
     public void setLoadPatch(String str) {
         loadPath.setText(str);
-        ;
     }
 
     public String getLoadPath() {
@@ -123,25 +123,38 @@ public class MainGUI extends JFrame {
     private void settings() {
         setTitle("prog1");
         setSize(WIDHT, HEIGTH);
+        setFont(font);
         setResizable(false);
         setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void createPanels() {
         add(createHeaderPanel(), BorderLayout.NORTH);
-        add(createLog());
+        add(createLog(), BorderLayout.CENTER);
         add(createFooterPanel(), BorderLayout.SOUTH);
     }
 
     private Component createHeaderPanel() {
-        headerPanel = new JPanel();
-//        headerPanel.setLayout(new GridLayout(1, 3, 30,0));
-        headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.X_AXIS));
+        headerPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
         headerPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        headerPanel.add(createCfgPanel());
-        headerPanel.add(createDateTimePanel());
-        headerPanel.add(createBtnPanel());
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.ipadx = 284;
+        gbc.ipady = 10;
+        headerPanel.add(createCfgPanel(), gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.ipadx = 50;
+        gbc.ipady = 35;
+        headerPanel.add(createDateTimePanel(), gbc);
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.ipadx = 180;
+        gbc.ipady = 10;
+        headerPanel.add(createBtnPanel(), gbc);
         return headerPanel;
     }
 
@@ -251,7 +264,6 @@ public class MainGUI extends JFrame {
         JPanel loadPanel = new JPanel(new GridLayout(1, 2));
         btnLoad = new JButton("Load");
         btnLoad.setFont(font);
-        loadPath = new JTextField(25);
         btnLoad.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -262,6 +274,8 @@ public class MainGUI extends JFrame {
                 }
             }
         });
+        loadPath = new JTextField(25);
+        loadPath.setFont(font);
         loadPanel.add(btnLoad);
         loadPanel.add(loadPath);
         btnPanel.add(loadPanel);
@@ -277,6 +291,7 @@ public class MainGUI extends JFrame {
             }
         });
         savePath = new JTextField(25);
+        savePath.setFont(font);
         savePanel.add(btnSave);
         savePanel.add(savePath);
 
@@ -296,7 +311,8 @@ public class MainGUI extends JFrame {
     private Component createLog() {
         log = new JTextArea();
         log.setFont(font);
-        return log;
+        sp = new JScrollPane(log);
+        return sp;
     }
 
     private Component createFooterPanel() {

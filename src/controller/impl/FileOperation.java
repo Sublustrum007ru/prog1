@@ -16,7 +16,7 @@ public class FileOperation implements Operation {
 
     private final String PATH_DIR = "src/siteSettings/";
     private final String DEFAULT_FILE = "default";
-    private final String SUFFICS_PATH = "txt";
+    private final String SUFFICS_PATH = ".txt";
 
 
     public void setMainController(MainController mainController) {
@@ -26,18 +26,11 @@ public class FileOperation implements Operation {
 
     @Override
     public String[] readFile(String path) throws IOException {
-        String[] result = null;
-        if (path.isEmpty()) {
-            if (!Files.exists(Paths.get(PATH_DIR + DEFAULT_FILE + SUFFICS_PATH))) {
-                mainController.message("Файл настроек по умолчанию не найден. Используются значения по умолчанию.");
-                result = new String[]{"", "", "", "", "", ""}; // Конструктор по умолчанию
-            }
-            path = DEFAULT_FILE;
-        }
+        String[] result = {"", "", "", "", "", ""};
         if (!Files.exists(Paths.get(PATH_DIR + path + SUFFICS_PATH))) {
-            mainController.message("Файл '" + path + SUFFICS_PATH + "' настроек не найден. Используются значения из дефолтного файла!!!!.");
-            readFile("");
-        } else {
+            String message = "Файл '"  + path + "' не найден. Попытка загрузить надстройки из файла 'default'";
+            mainController.message(message);
+            path = DEFAULT_FILE;
             String temp = null;
             try {
                 BufferedReader reader = new BufferedReader(new FileReader(PATH_DIR + path + SUFFICS_PATH));
@@ -48,17 +41,19 @@ public class FileOperation implements Operation {
                 }
                 reader.close();
             } catch (IOException e) {
-                mainController.message("Файл настроек не найден. Используются значения по умолчанию.");
-//            e.printStackTrace();
+                mainController.message("Файл 'default' настроек не найден. Используются значения по умолчанию.");
+                result = new String[]{"", "", "", "", "", ""};
             }
             if (temp == null) {
-                return result = new String[]{"", "", "", "", "", ""};
+                result = new String[]{"", "", "", "", "", ""};
             }
+            mainController.message("" + temp);
             result = temp.split(" \\| ", -1);
+            mainController.message("" + result);
         }
         return result;
-
     }
+
 
     @Override
     public void writeFile(String path, SiteSettings siteSettings) {

@@ -46,9 +46,7 @@ public class NestedPanelsExample extends JFrame {
         statusBar.add(clockPanel, BorderLayout.EAST);
 
         add(statusBar, BorderLayout.SOUTH);
-    }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new NestedPanelsExample().setVisible(true));
+        setVisible(true);
     }
 }
