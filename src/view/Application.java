@@ -23,7 +23,7 @@ public class Application{
         mainGUI.setMainController(mainContorller);
         mainGUI.showMessage(helloMSG);
 
-//        new MyNotes();
+        new MyNotes();
 
     } 
     public static void promt(String str){ 
