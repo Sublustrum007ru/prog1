@@ -19,7 +19,7 @@ public class MyNotes extends JFrame {
 
     private void createPanels(){
         JTextArea log = new JTextArea();
-        String message = "Переписать чтение из ыала,\nтак что если файла нет,\nпросто вывести сообщение";
+        String message = "Пепепроверить чтение и запись в файл.";
         log.setText(message);
         add(log);
     }
