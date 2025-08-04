@@ -311,6 +311,8 @@ public class MainGUI extends JFrame {
     private Component createLog() {
         log = new JTextArea();
         log.setFont(font);
+        log.setLineWrap(true);
+        log.setWrapStyleWord(true);
         sp = new JScrollPane(log);
         return sp;
     }

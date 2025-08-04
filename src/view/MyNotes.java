@@ -19,8 +19,10 @@ public class MyNotes extends JFrame {
 
     private void createPanels(){
         JTextArea log = new JTextArea();
-        String message = "Пепепроверить чтение и запись в файл.";
+        String message = "Добавить основную часть программы парсинга сайта.";
         log.setText(message);
+        log.setLineWrap(true);
+        log.setWrapStyleWord(true);
         add(log);
     }
 }

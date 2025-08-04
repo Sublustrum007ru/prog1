@@ -36,8 +36,7 @@ public class Application{
 
         mainGUI.showMessage(helloMSG);
 
-//        new MyNotes();
-//        new Window();
+        new MyNotes();
     } 
     public static void promt(String str){ 
         System.out.println(str); 
