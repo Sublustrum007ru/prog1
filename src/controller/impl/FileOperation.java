@@ -4,7 +4,6 @@ package controller.impl;
 import controller.MainController;
 import controller.Operation;
 import controller.SiteSettings;
-
 import java.io.*;
 
 import static util.Validator.isNotEmptySiteSettings;
@@ -15,7 +14,6 @@ public class FileOperation implements Operation {
     private final String PATH_DIR = "src/siteSettings/";
     private final String DEFAULT_FILE = "default";
     private final String SUFFICS_PATH = ".txt";
-    private int count = 0;
     private String temp = null;
 
 
@@ -27,7 +25,7 @@ public class FileOperation implements Operation {
     @Override
     public String[] readFile(String path) throws IOException {
         mainController.message("Чтение из файла. " + PATH_DIR + path + SUFFICS_PATH);
-        String[] result = new String[]{};
+        String[] result;
         try {
             BufferedReader reader = new BufferedReader(new FileReader(PATH_DIR + path + SUFFICS_PATH));
             String line = reader.readLine();
@@ -37,12 +35,22 @@ public class FileOperation implements Operation {
             }
             reader.close();
         } catch (IOException e) {
+            if (path.equals("default")) {
+                mainController.message("Дефолтного файла нет.");
+                createDefaultFileSettings(path);
+            }
             path = DEFAULT_FILE;
             mainController.message("Файла не существует. Чтение из дефолтного файла. " + PATH_DIR + path + SUFFICS_PATH);
             readFile(path);
         }
         result = temp.split(" \\| ", -1);
         return result;
+    }
+
+    private void createDefaultFileSettings(String path){
+        mainController.message("Создание дефолтного файла");
+        SiteSettings siteSettings = new SiteSettings("default", "default", "default", "default", "default", "default");
+        writeFile(path, siteSettings);
     }
 
 
@@ -61,5 +69,9 @@ public class FileOperation implements Operation {
                 mainController.message("WARNIG " + e.getMessage());
             }
         }
+    }
+
+    public void testWriteJSON(SiteSettings siteSettings){
+        String nameFileToJSON = "site_Settings.json";
     }
 }

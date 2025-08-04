@@ -242,7 +242,12 @@ public class MainGUI extends JFrame {
     }
 
     private void initTimer() {
-        timer = new Timer(1000, e -> updateClock());
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateClock();
+            }
+        });
         timer.start();
         updateClock();
     }
@@ -321,6 +326,17 @@ public class MainGUI extends JFrame {
             }
         });
         footerPanel.add(btnClose);
+
+
+        JButton btnLogin = new JButton("Login");
+        btnLogin.setFont(font);
+        btnLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainController.testRunLoginGUI();
+            }
+        });
+//        footerPanel.add(btnLogin);
         return footerPanel;
     }
 

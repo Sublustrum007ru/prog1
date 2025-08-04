@@ -2,22 +2,24 @@ package controller;
 
 import controller.impl.FileOperation;
 import view.MainGUI;
-
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainController implements MainView {
     private MainGUI mainGUI;
+    private LoginController loginController;
     private FileOperation fileOperation;
     private SiteSettings siteSettings;
     private FindTime time;
-    private Timer timer = new Timer();
+    private final Timer timer = new Timer();
 
     public void setMainGUI(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
+    }
+
+    public void setLoginController(LoginController loginController){
+        this.loginController = loginController;
     }
 
     public void setFileOperation(FileOperation fileOperation) {
@@ -33,7 +35,7 @@ public class MainController implements MainView {
     }
 
     public void message(String message) {
-        showMessage(message+ "\n");
+        showMessage(message);
     }
 
     public void setMainGUIVisible() {
@@ -90,6 +92,10 @@ public class MainController implements MainView {
             }
         };
         timer.schedule(task1, time);
+    }
+
+    public void testRunLoginGUI(){
+        loginController.setVisibleLoginGUI();
     }
 
 }
