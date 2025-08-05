@@ -11,7 +11,7 @@ public class LoginController {
     private MainController mainController;
     private final Timer timer = new Timer();
 
-    private final String superUserLogin = "Sublustrum007";
+    private final String superUserLogin = "admin";
     private final String superUserPassword = "123456";
 
     public void setLoginGUI(LoginGUI loginGUI){
