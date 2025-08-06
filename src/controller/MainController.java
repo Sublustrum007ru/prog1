@@ -47,7 +47,11 @@ public class MainController implements MainView {
         mainGUI.showMessage(time.findTime() + message);
     }
 
-    public void loadSettings() throws IOException {
+    public void clickLoadBtn() throws IOException {
+        loadSettings();
+    }
+
+    private void loadSettings() throws IOException {
         message("Загрузка надстроек.......");
         SiteSettings temp = siteSettings.createSiteSettings(fileOperation.readFile(mainGUI.getLoadPath()));
         mainGUI.setSiteURL(temp.getSiteURL());
@@ -60,7 +64,12 @@ public class MainController implements MainView {
 
     }
 
-    public void writeSettings() {
+    public void clickSaveBtn(){
+        writeSettings();
+        saveSettingsToJson();
+    }
+
+    private void writeSettings() {
         message("Сохранение надстроек......");
 
         fileOperation.writeFile(mainGUI.getSavePath(), new SiteSettings(
@@ -79,9 +88,22 @@ public class MainController implements MainView {
         message("Сохранение надстроек в файл .json ......");
     }
 
-    public void startParce() {
+    public void clickLogonBtn(){
+        mainGUI.btnVisibleLogonOff();
+    }
+
+    public void clickLogoffBtn(){
+        mainGUI.btnVisibleLogonOn();
+    }
+
+    public void clickStartBtn(){
+        runParse();
+    }
+
+    private void runParse() {
         message("Начато сканирование.....");
         startTimer(1000, "Сканирование окончено");
+
     }
 
     public void startTimer(int time, String message) {

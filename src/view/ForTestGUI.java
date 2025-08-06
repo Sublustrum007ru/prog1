@@ -13,118 +13,47 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class MainGUI extends JFrame {
+public class ForTestGUI extends JFrame {
+
     private MainController mainController;
 
     private Timer timer;
     private static DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
     private static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd:MM:YYYY");
+
     private static Font font = new Font("Times New Roman", Font.BOLD, 14);
 
-    private final int WIDHT = 1100;
+    private final int WIDHT = 1200;
     private final int HEIGTH = 800;
 
-    private JPanel topPanel, bottomPanel, rightPanel, leftPanel, cfgSettingsPanel, middlePanel;
-    private JLabel lbSiteName, lbBaseUrl, lbCategorySelector, lbProductSelector, lbTitleSelector, lbPriceSelector, dateLabel, clockLabel;
-    private JTextField siteURL, baseUrl, categorySelector, productSelector, titleSelector, priceSelector, loadPath, savePath;
-    private JTextArea log;
-    private JScrollPane sp;
-    private JButton btnClose, btnLogon, btnLogoff, btnStart, btnLoad, btnSave;
+    private int a;
+    private int b;
 
-    public void setMainController(MainController mainController) {
+    private JPanel topPanel, centerPanel, bottomPanel, leftPanel, middlePanel, rightPanel;
+    private JLabel lbSiteName, lbBaseURl, lnCategorySelector, lbProductSelector, lbTitleSelector, lbPriceSelector, dateLabel, clockLabel;
+    private JTextArea log;
+    private JTextField siteName, baseURL, categorySelector, productSelector, titleSelector, priceSelector, loadPath, savePath;
+    private JButton btnLoad, btnSave, btnStart, btnLogon, btnClose;
+
+    public void setMainController(MainController mainController){
         this.mainController = mainController;
     }
 
-    public void setSiteURL(String str) {
-        siteURL.setText(str);
-    }
-
-    public String getSiteURL() {
-        return siteURL.getText();
-    }
-
-    public void setBaseUrl(String str) {
-        baseUrl.setText(str);
-    }
-
-    public String getBaseURL() {
-        return baseUrl.getText();
-    }
-
-    public void setCategorySelector(String str) {
-        categorySelector.setText(str);
-    }
-
-    public String getCategoreSelector() {
-        return categorySelector.getText();
-    }
-
-    public void setProductSelector(String str) {
-        productSelector.setText(str);
-    }
-
-    public String getProductSelector() {
-        return productSelector.getText();
-    }
-
-    public void setTitleSelector(String str) {
-        titleSelector.setText(str);
-    }
-
-    public String getTitleSelector() {
-        return titleSelector.getText();
-    }
-
-    public void setPriceSelector(String str) {
-        priceSelector.setText(str);
-    }
-
-    public String getPriceSelector() {
-        return priceSelector.getText();
-    }
-
-    public void setSavePath(String str) {
-        savePath.setText(str);
-    }
-
-    public String getSavePath() {
-        return savePath.getText();
-    }
-
-    public void setLoadPatch(String str) {
-        loadPath.setText(str);
-    }
-
-    public String getLoadPath() {
-        return loadPath.getText();
-    }
-
-    public MainGUI() {
+    public ForTestGUI() {
         settings();
-        createPanels();
+        createsPanels();
         setVisible(true);
     }
 
-    /***
-     * Задаются параметры создаваемого окна.
-     * setTitle() - Имя окна, выводиться как обычно. В рамке окна.
-     * setSize(int WIDHT, int HEIGTH) - Размеры окна. Указываются в целых числах.
-     * setResizable() - Если в скобках написано "true", то пользваотелю разрешено изменять размер окна. Если "false", то запрещено.
-     * setLocationRelativeTo(null) - Позиионирование создоваемого окна. "null" - позиционирование опцентру экрана.
-     * setLayout(new BorderLayout()) - Задается какой менеджер компоновки будет использоваться.
-     * setDefaultCloseOperaion() - Параметр задающий дествия при закрытие окна.
-     */
     private void settings() {
-        setTitle("prog1");
         setSize(WIDHT, HEIGTH);
-        setFont(font);
         setResizable(false);
+        setTitle("Test GUI");
         setLocationRelativeTo(null);
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
-    private void createPanels() {
+    private void createsPanels() {
         setLayout(new BorderLayout());
         add(createTopPanel(), BorderLayout.NORTH);
         add(createCenterPanel(), BorderLayout.CENTER);
@@ -134,7 +63,6 @@ public class MainGUI extends JFrame {
     private Component createTopPanel() {
         topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
-        topPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         topPanel.add(createLeftPanel());
         topPanel.add(createMiddlePanel());
         topPanel.add(createRightPanel());
@@ -142,65 +70,43 @@ public class MainGUI extends JFrame {
     }
 
     private Component createLeftPanel() {
-        String panelName = "Settings";
+        String name = "Settings";
         leftPanel = new JPanel(new GridBagLayout());
-        leftPanel.setMinimumSize(new Dimension(650,150));
-        leftPanel.setMaximumSize(new Dimension(650,150));
+        leftPanel.setMinimumSize(new Dimension(600,150));
+        leftPanel.setMaximumSize(new Dimension(600,150));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(2, 2, 2, 2);
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        leftPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        leftPanel.setBorder(setTitleBorder(panelName));
-        lbSiteName = new JLabel("Site URL");
-        lbSiteName.setFont(font);
-        lbBaseUrl = new JLabel("Base URL");
-        lbBaseUrl.setFont(font);
-        lbCategorySelector = new JLabel("Category Selector");
-        lbCategorySelector.setFont(font);
+        leftPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        leftPanel.setBorder(setTitleBorder(name));
+        lbSiteName = new JLabel("Site name");
+        lbBaseURl = new JLabel("Base URL");
+        lnCategorySelector = new JLabel("Category Selectro");
         lbProductSelector = new JLabel("Product Selector");
-        lbProductSelector.setFont(font);
         lbTitleSelector = new JLabel("Title Selector");
-        lbTitleSelector.setFont(font);
         lbPriceSelector = new JLabel("Price Selector");
-        lbPriceSelector.setFont(font);
-        siteURL = new JTextField(30);
-        baseUrl = new JTextField(30);
-        categorySelector = new JTextField(30);
-        productSelector = new JTextField(30);
-        titleSelector = new JTextField(30);
-        priceSelector = new JTextField(30);
-        JLabel[] labels = {lbSiteName, lbBaseUrl, lbCategorySelector, lbProductSelector, lbTitleSelector, lbPriceSelector};
-        JTextField[] fields = {siteURL, baseUrl, categorySelector, productSelector, titleSelector, priceSelector};
+        siteName = new JTextField();
+        baseURL = new JTextField();
+        categorySelector = new JTextField();
+        productSelector = new JTextField();
+        titleSelector = new JTextField();
+        priceSelector = new JTextField();
+        JLabel[] labels = {lbSiteName, lbBaseURl, lnCategorySelector, lbProductSelector, lbTitleSelector, lbPriceSelector};
+        JTextField[] fields = {siteName, baseURL, categorySelector, productSelector, titleSelector, priceSelector};
         for (int i = 0; i < labels.length; i++) {
-            gbc.gridy = i / 2;
-            gbc.gridx = (i % 2) * 2;
+            gbc.gridy = i / 2; // row
+            gbc.gridx = (i % 2) * 2; // colums
+
             leftPanel.add(labels[i], gbc);
             gbc.gridx++;
             gbc.weightx = 1.0;
+            gbc.ipadx = 300;
             leftPanel.add(fields[i], gbc);
             gbc.weightx = 0;
+            gbc.ipadx = 0;
         }
         return leftPanel;
-    }
-
-    private TitledBorder setTitleBorder(String name) {
-        Border baseBorder = BorderFactory.createEtchedBorder();
-
-        /***
-         * name - Имя панели.
-         * TitleBorder.CENTER - Выравнивание по горизонтале
-         * TitleBorder.TOP - Выравнивание по вертикали
-         * font- Шрифт. В данном примере задан в самом начале.
-         */
-        TitledBorder titledBorder = BorderFactory.createTitledBorder(
-                baseBorder,
-                name,
-                TitledBorder.CENTER,
-                TitledBorder.TOP,
-                font
-        );
-        return titledBorder;
     }
 
     private Component createMiddlePanel() {
@@ -256,7 +162,7 @@ public class MainGUI extends JFrame {
     }
 
     private Component createRightPanel() {
-        String name = "";
+        String name = "Button";
         rightPanel = new JPanel();
         rightPanel.setMinimumSize(new Dimension(300,150));
         rightPanel.setMaximumSize(new Dimension(300,150));
@@ -285,28 +191,11 @@ public class MainGUI extends JFrame {
                 mainController.clickSaveBtn();
             }
         });
-        btnLogon = new JButton("Logon");
-        btnLogon.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                btnVisibleLogonOff();
-                mainController.clickLogonBtn();
-            }
-        });
-        btnLogoff = new JButton("Logoff");
-        btnLogoff.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                btnVisibleLogonOff();
-                mainController.clickLogoffBtn();
-            }
-        });
         btnStart = new JButton("Start");
         btnStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                btnVisibleLogonOff();
-                mainController.clickStartBtn();
+                mainController.clickLogonBtn();
             }
         });
         loadPath = new JTextField();
@@ -327,46 +216,97 @@ public class MainGUI extends JFrame {
         gbc.gridy = 2;
         gbc.gridx = 0;
         gbc.gridwidth = 2;
-        rightPanel.add(btnLogon, gbc);
-        gbc.gridwidth = 1;
-        rightPanel.add(btnLogoff, gbc);
-        gbc.gridx = 1;
         rightPanel.add(btnStart, gbc);
         return rightPanel;
     }
 
     private Component createCenterPanel() {
+        centerPanel = new JPanel(new GridLayout(1, 1));
         log = new JTextArea();
-        log.setFont(font);
         log.setLineWrap(true);
         log.setWrapStyleWord(true);
-        sp = new JScrollPane(log);
-        return sp;
+        JScrollPane sp = new JScrollPane(log);
+        centerPanel.add(sp);
+        return centerPanel;
     }
 
     private Component createBottomPanel() {
         bottomPanel = new JPanel();
         btnClose = new JButton("CLOSE");
-        btnClose.setFont(font);
         btnClose.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainController.setMainGUIVisible();
+                dispose();
             }
         });
         bottomPanel.add(btnClose);
-
-
-        JButton btnLogin = new JButton("TestGUI");
-        btnLogin.setFont(font);
-        btnLogin.addActionListener(new ActionListener() {
+        JLabel gridX = new JLabel();
+        JLabel gridY = new JLabel();
+        JButton upX = new JButton("+");
+        upX.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ForTestGUI();
+                a++;
+                myRepaint();
+                System.out.println("a = " + a);
             }
         });
-        bottomPanel.add(btnLogin);
+        JButton downX = new JButton("-");
+        downX.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                a--;
+                System.out.println("a = " + a);
+            }
+        });
+        JButton upY = new JButton("+");
+        upY.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                b++;
+                System.out.println("b = " + b);
+            }
+        });
+        JButton downY = new JButton("-");
+        downY.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                b--;
+                System.out.println("b = " + b);
+            }
+        });
+        gridX.setText("GridX : " + a);
+        gridY.setText("GridY : " + b);
+        bottomPanel.add(downX);
+        bottomPanel.add(gridX);
+        bottomPanel.add(upX);
+        bottomPanel.add(downY);
+        bottomPanel.add(gridY);
+        bottomPanel.add(upY);
         return bottomPanel;
+    }
+
+    private void myRepaint(){
+        getContentPane().repaint();
+    }
+
+    private TitledBorder setTitleBorder(String name) {
+        Border baseBorder = BorderFactory.createEtchedBorder();
+
+        /***
+         * name - Имя панели.
+         * TitleBorder.CENTER - Выравнивание по горизонтале
+         * TitleBorder.TOP - Выравнивание по вертикали
+         * font- Шрифт. В данном примере задан в самом начале.
+         */
+        TitledBorder titledBorder = BorderFactory.createTitledBorder(
+                baseBorder,
+                name,
+                TitledBorder.CENTER,
+                TitledBorder.TOP,
+                font
+        );
+        return titledBorder;
     }
 
     public void closeMainGUI() {
@@ -377,16 +317,68 @@ public class MainGUI extends JFrame {
         log.append(message + "\n");
     }
 
-    public void btnVisibleLogonOn(){
-        btnLogon.setVisible(true);
+    public void setSiteURL(String str) {
+        siteName.setText(str);
     }
-    public void btnVisibleLogonOff(){
-        btnLogon.setVisible(false);
+
+    public String getSiteURL() {
+        return siteName.getText();
     }
-    public void btnVisibleLogoffOn(){
-        btnLogoff.setVisible(true);
+
+    public void setBaseUrl(String str) {
+        baseURL.setText(str);
     }
-    public void btnVisibleLogoffOff(){
-        btnLogoff.setVisible(false);
+
+    public String getBaseURL() {
+        return baseURL.getText();
     }
+
+    public void setCategorySelector(String str) {
+        categorySelector.setText(str);
+    }
+
+    public String getCategoreSelector() {
+        return categorySelector.getText();
+    }
+
+    public void setProductSelector(String str) {
+        productSelector.setText(str);
+    }
+
+    public String getProductSelector() {
+        return productSelector.getText();
+    }
+
+    public void setTitleSelector(String str) {
+        titleSelector.setText(str);
+    }
+
+    public String getTitleSelector() {
+        return titleSelector.getText();
+    }
+
+    public void setPriceSelector(String str) {
+        priceSelector.setText(str);
+    }
+
+    public String getPriceSelector() {
+        return priceSelector.getText();
+    }
+
+    public void setSavePath(String str) {
+        savePath.setText(str);
+    }
+
+    public String getSavePath() {
+        return savePath.getText();
+    }
+
+    public void setLoadPatch(String str) {
+        loadPath.setText(str);
+    }
+
+    public String getLoadPath() {
+        return loadPath.getText();
+    }
+
 }
