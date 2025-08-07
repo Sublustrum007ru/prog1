@@ -23,6 +23,9 @@ public class MainGUI extends JFrame {
 
     private final int WIDHT = 1100;
     private final int HEIGTH = 800;
+    private final int LEFTPANEL_WIDHT = 715;
+    private final int MIDDLEPANEL_WIDHT = 100;
+    private final int RIGHTPANEL_WIDHT = 265;
 
     private JPanel topPanel, bottomPanel, rightPanel, leftPanel, cfgSettingsPanel, middlePanel;
     private JLabel lbSiteName, lbBaseUrl, lbCategorySelector, lbProductSelector, lbTitleSelector, lbPriceSelector, dateLabel, clockLabel;
@@ -55,7 +58,7 @@ public class MainGUI extends JFrame {
         categorySelector.setText(str);
     }
 
-    public String getCategoreSelector() {
+    public String getCategorySelector() {
         return categorySelector.getText();
     }
 
@@ -144,8 +147,9 @@ public class MainGUI extends JFrame {
     private Component createLeftPanel() {
         String panelName = "Settings";
         leftPanel = new JPanel(new GridBagLayout());
-        leftPanel.setMinimumSize(new Dimension(650,150));
-        leftPanel.setMaximumSize(new Dimension(650,150));
+        leftPanel.setMinimumSize(new Dimension(LEFTPANEL_WIDHT,120));
+        leftPanel.setMaximumSize(new Dimension(LEFTPANEL_WIDHT,120));
+        leftPanel.setPreferredSize(new Dimension(LEFTPANEL_WIDHT,120));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(2, 2, 2, 2);
         gbc.anchor = GridBagConstraints.WEST;
@@ -206,9 +210,10 @@ public class MainGUI extends JFrame {
     private Component createMiddlePanel() {
         String name = "Date / Time";
         middlePanel = new JPanel();
-        middlePanel.setMinimumSize(new Dimension(120,150));
-        middlePanel.setMaximumSize(new Dimension(120,150));
         middlePanel.setLayout(new GridBagLayout());
+        middlePanel.setMinimumSize(new Dimension(MIDDLEPANEL_WIDHT,120));
+        middlePanel.setMaximumSize(new Dimension(MIDDLEPANEL_WIDHT, 120));
+        middlePanel.setPreferredSize(new Dimension(MIDDLEPANEL_WIDHT,120));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5,5,5,5);
         gbc.anchor = GridBagConstraints.CENTER;
@@ -256,11 +261,13 @@ public class MainGUI extends JFrame {
     }
 
     private Component createRightPanel() {
+
         String name = "";
         rightPanel = new JPanel();
-        rightPanel.setMinimumSize(new Dimension(300,150));
-        rightPanel.setMaximumSize(new Dimension(300,150));
         rightPanel.setLayout(new GridBagLayout());
+        rightPanel.setMinimumSize(new Dimension(RIGHTPANEL_WIDHT, 120));
+        rightPanel.setMaximumSize(new Dimension(RIGHTPANEL_WIDHT, 120));
+        rightPanel.setPreferredSize(new Dimension(RIGHTPANEL_WIDHT,120));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(2,2,2,2);
         gbc.anchor = GridBagConstraints.WEST;
@@ -313,7 +320,7 @@ public class MainGUI extends JFrame {
         savePath = new JTextField();
         gbc.gridy = 0;
         gbc.gridx = 0;
-        gbc.ipadx = 100;
+        gbc.ipadx = 60;
         rightPanel.add(btnLoad, gbc);
         gbc.gridy = 0;
         gbc.gridx = 1;

@@ -75,7 +75,7 @@ public class MainController implements MainView {
         fileOperation.writeFile(mainGUI.getSavePath(), new SiteSettings(
                 mainGUI.getSiteURL(),
                 mainGUI.getBaseURL(),
-                mainGUI.getCategoreSelector(),
+                mainGUI.getCategorySelector(),
                 mainGUI.getProductSelector(),
                 mainGUI.getTitleSelector(),
                 mainGUI.getPriceSelector())

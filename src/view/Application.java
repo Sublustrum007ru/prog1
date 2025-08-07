@@ -8,8 +8,8 @@ import controller.SiteSettings;
 
 
 public class Application{
-    public static void run(){ 
-        String helloMSG = "Hello World!!!\nMy name is Sublustrum007"; 
+    public Application(){
+        String helloMSG = "Hello World!!!\nMy name is Sublustrum007";
         promt(helloMSG);
 
         MainGUI mainGUI = new MainGUI();
@@ -36,8 +36,8 @@ public class Application{
 
         mainGUI.showMessage(helloMSG);
 
-        new MyNotes();
-    } 
+//        new MyNotes();
+    }
     public static void promt(String str){ 
         System.out.println(str); 
     } 
