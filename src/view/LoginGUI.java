@@ -105,11 +105,11 @@ public class LoginGUI extends JFrame {
         checkUser.setText(str);
     }
 
-    public void setLoginField(){
-        loginEntry.setText("");
+    public void setLoginField(String str){
+        loginEntry.setText(str);
     }
-    public void setPassEntry(){
-        passEntry.setText("");
+    public void setPassEntry(Strung str){
+        passEntry.setText(str);
     }
     public String getLogin(){
         return loginEntry.getText();
