@@ -27,8 +27,8 @@ public class LoginController {
     }
 
     public void setVisibleLoginGUI(){
-        loginGUI.setLoginField();
-        loginGUI.setPassEntry();
+        loginGUI.setLoginField("");
+        loginGUI.setPassEntry("");
         loginGUI.setVisible(true);
     }
 
