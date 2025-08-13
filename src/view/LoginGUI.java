@@ -1,6 +1,7 @@
 package view;
 
 import controller.LoginController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,27 +17,27 @@ public class LoginGUI extends JFrame {
     private JPasswordField passEntry;
     private JButton btnLogin, btnCancel;
 
-    public void setLoginController(LoginController loginController){
+    public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
     }
 
-    public LoginGUI(){
+    public LoginGUI() {
         settings();
         createPanels();
 
         setVisible(false);
     }
 
-    private void settings(){
+    private void settings() {
         setTitle("Login");
-        setSize(200,150);
+        setSize(200, 150);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         setLayout(new GridBagLayout());
     }
 
-    private void createPanels(){
+    private void createPanels() {
 
         panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -101,21 +102,23 @@ public class LoginGUI extends JFrame {
         add(panel);
     }
 
-    public void setCheckUser(String str){
+    public void setCheckUser(String str) {
         checkUser.setText(str);
     }
 
-    public void setLoginField(String str){
+    public void setLoginField(String str) {
         loginEntry.setText(str);
     }
-    public void setPassEntry(Strung str){
+
+    public void setPassEntry(String str) {
         passEntry.setText(str);
     }
-    public String getLogin(){
+
+    public String getLogin() {
         return loginEntry.getText();
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return passEntry.getText();
     }
 
