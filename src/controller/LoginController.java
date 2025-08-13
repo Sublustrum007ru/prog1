@@ -59,7 +59,7 @@ public class LoginController {
             @Override
             public void run() {
                 loginGUI.setVisible(false);
-                mainController.message("Добро пожаловать в систему " + nameUser + "!!!!");
+                mainController.message("Добро пожаловать в систему, " + nameUser + "!!!!");
             }
         };
         timer.schedule(task1, time);
