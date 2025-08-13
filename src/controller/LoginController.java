@@ -34,13 +34,10 @@ public class LoginController {
     }
 
     public void clickLoginBtn(){
-        String login, password;
-        login = loginGUI.getLogin();
-        password = loginGUI.getPassword();
-        if(login.equals(superUserLogin)){
-            if(password.equals(superUserPassword)){
+        if(checkLogin()){
+            if(checkPasswd()){
                 loginGUI.setCheckUser("Succesfull");
-                startTimer(1000, login);
+                startTimer(1000, loginGUI.getLogin());
                 mainController.setVisbleLogonBtn();
             }else{
                 loginGUI.setCheckUser("Password incorrect");
@@ -48,6 +45,15 @@ public class LoginController {
         }else{
             loginGUI.setCheckUser("Login incorrect");
         }
+    }
+    private boolean checkLogin(){
+        String login = loginGUI.getLogin();
+        return login.equals(superUserLogin);
+    }
+
+    private boolean checkPasswd(){
+        String password = loginGUI.getPassword();
+        return password.equals(superUserPassword);
     }
 
     public void clickCancelBtn(){
