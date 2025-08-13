@@ -29,6 +29,7 @@ public class LoginController {
     public void setVisibleLoginGUI(){
         loginGUI.setLoginField("");
         loginGUI.setPassEntry("");
+        loginGUI.setCheckUser("");
         loginGUI.setVisible(true);
     }
 
@@ -40,6 +41,7 @@ public class LoginController {
             if(password.equals(superUserPassword)){
                 loginGUI.setCheckUser("Succesfull");
                 startTimer(1000, login);
+                mainController.setVisbleLogonBtn();
             }else{
                 loginGUI.setCheckUser("Password incorrect");
             }

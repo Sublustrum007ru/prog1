@@ -2,6 +2,7 @@ package controller;
 
 import controller.impl.FileOperation;
 import view.MainGUI;
+
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,7 +19,7 @@ public class MainController implements MainView {
         this.mainGUI = mainGUI;
     }
 
-    public void setLoginController(LoginController loginController){
+    public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
     }
 
@@ -64,7 +65,7 @@ public class MainController implements MainView {
 
     }
 
-    public void clickSaveBtn(){
+    public void clickSaveBtn() {
         writeSettings();
         saveSettingsToJson();
     }
@@ -88,15 +89,19 @@ public class MainController implements MainView {
         message("Сохранение надстроек в файл .json ......");
     }
 
-    public void clickLogonBtn(){
+    public void clickLogonBtn() {
+        loginController.setVisibleLoginGUI();
+    }
+
+    public void setVisbleLogonBtn(){
         mainGUI.btnVisibleLogonOff();
     }
 
-    public void clickLogoffBtn(){
+    public void clickLogoffBtn() {
         mainGUI.btnVisibleLogonOn();
     }
 
-    public void clickStartBtn(){
+    public void clickStartBtn() {
         runParse();
     }
 
@@ -114,10 +119,6 @@ public class MainController implements MainView {
             }
         };
         timer.schedule(task1, time);
-    }
-
-    public void testRunLoginGUI(){
-        loginController.setVisibleLoginGUI();
     }
 
 }

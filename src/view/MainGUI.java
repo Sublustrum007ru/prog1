@@ -27,7 +27,7 @@ public class MainGUI extends JFrame {
     private final int MIDDLEPANEL_WIDHT = 100;
     private final int RIGHTPANEL_WIDHT = 265;
 
-    private JPanel topPanel, bottomPanel, rightPanel, leftPanel, cfgSettingsPanel, middlePanel;
+    private JPanel topPanel, bottomPanel, rightPanel, leftPanel, middlePanel;
     private JLabel lbSiteName, lbBaseUrl, lbCategorySelector, lbProductSelector, lbTitleSelector, lbPriceSelector, dateLabel, clockLabel;
     private JTextField siteURL, baseUrl, categorySelector, productSelector, titleSelector, priceSelector, loadPath, savePath;
     private JTextArea log;
@@ -296,7 +296,6 @@ public class MainGUI extends JFrame {
         btnLogon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                btnVisibleLogonOff();
                 mainController.clickLogonBtn();
             }
         });
@@ -304,7 +303,6 @@ public class MainGUI extends JFrame {
         btnLogoff.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                btnVisibleLogonOff();
                 mainController.clickLogoffBtn();
             }
         });
