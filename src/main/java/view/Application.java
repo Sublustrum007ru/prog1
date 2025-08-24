@@ -35,16 +35,6 @@ public class Application{
         mainContorller.setParseSites(parsingSites);
         parsingSites.setMainController(mainContorller);
 
-        ParsingSitesTest parsingSitesTest = new ParsingSitesTest();
-        mainContorller.setParseSitesTest(parsingSitesTest);
-        parsingSitesTest.setMainController(mainContorller);
-        FindCategory findCategory = new FindCategory();
-        FindProducts findProducts =new FindProducts();
-        parsingSitesTest.setFindCategory(findCategory);
-        parsingSitesTest.setFindProducts(findProducts);
-        findCategory.setParsingSitesTest(parsingSitesTest);
-        findProducts.setParsingSitesTest(parsingSitesTest);
-
         mainGUI.showMessage(helloMSG);
 
 //        new MyNotes();

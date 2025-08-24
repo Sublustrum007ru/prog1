@@ -12,6 +12,7 @@ public class Category {
     public void setName(String name){
         this.name = name;
     }
+
     public String getName(){
         return name;
     }
@@ -22,5 +23,13 @@ public class Category {
 
     public String getURL(){
         return URL;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "name='" + name + '\'' +
+                ", URL='" + URL + '\'' +
+                '}';
     }
 }

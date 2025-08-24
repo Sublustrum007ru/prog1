@@ -2,16 +2,34 @@ package controller;
 
 public class Product {
     String name;
-    String link;
     String price;
-    String foundBy;
-    String priceSelector;
 
     public Product() {
         this.name = "Без названия";
-        this.link = "#";
         this.price = "Цена не определена";
-        this.foundBy = "Не определен";
-        this.priceSelector = "Не определен";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price='" + price + '\'' +
+                '}';
     }
 }

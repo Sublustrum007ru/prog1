@@ -14,7 +14,6 @@ public class MainController implements MainView {
     private SiteSettings siteSettings;
     private FindTime time;
     private ParsingSites parseSites;
-    private ParsingSitesTest parseSitesTest;
     private final Timer timer = new Timer();
 
     public void setMainGUI(MainGUI mainGUI) {
@@ -35,9 +34,6 @@ public class MainController implements MainView {
 
     public void setParseSites(ParsingSites parsingSites){
         this.parseSites = parsingSites;
-    }
-    public void setParseSitesTest(ParsingSitesTest parseSitesTest){
-        this.parseSitesTest = parseSitesTest;
     }
 
     public void setTime(FindTime time) {
@@ -117,14 +113,13 @@ public class MainController implements MainView {
 
     private void runParse() {
         message("Начато сканирование.....");
-//        parseSites.ParsingSites(mainGUI.getSiteURL());
         SiteSettings settings = new SiteSettings(mainGUI.getSiteURL(),
                 mainGUI.getBaseURL(),
                 mainGUI.getCategorySelector(),
                 mainGUI.getProductSelector(),
                 mainGUI.getTitleSelector(),
                 mainGUI.getPriceSelector());
-        parseSitesTest.startParsing(siteSettings);
+        parseSites.ParsingSites(settings);
     }
 
     public void startTimer(int time, String message) {

@@ -360,17 +360,7 @@ public class MainGUI extends JFrame {
             }
         });
         bottomPanel.add(btnClose);
-
-
-        JButton btnLogin = new JButton("TestGUI");
-        btnLogin.setFont(font);
-        btnLogin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new ForTestGUI();
-            }
-        });
-        bottomPanel.add(btnLogin);
+        
         return bottomPanel;
     }
 
