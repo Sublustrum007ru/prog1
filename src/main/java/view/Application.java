@@ -1,6 +1,7 @@
 package view;
 
 import controller.*;
+import controller.finds.FindBaseUrl;
 import controller.impl.FileOperation;
 
 
@@ -34,6 +35,9 @@ public class Application{
         ParsingSites parsingSites = new ParsingSites();
         mainContorller.setParseSites(parsingSites);
         parsingSites.setMainController(mainContorller);
+        FindBaseUrl findBaseUrl = new FindBaseUrl();
+        parsingSites.setFindBaseURL(findBaseUrl);
+        findBaseUrl.setParseSites(parsingSites);
 
         mainGUI.showMessage(helloMSG);
 

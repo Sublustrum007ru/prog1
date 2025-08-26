@@ -40,7 +40,7 @@ public class MainController implements MainView {
         this.time = time;
     }
 
-    public void message(String message) {
+    public <T>void message(T message) {
         showMessage(message);
     }
 
@@ -49,7 +49,7 @@ public class MainController implements MainView {
     }
 
     @Override
-    public void showMessage(String message) {
+    public <T>void showMessage(T message) {
         mainGUI.showMessage(time.findTime() + message);
     }
 
@@ -105,13 +105,13 @@ public class MainController implements MainView {
         mainGUI.btnVisibleLogonOn();
     }
 
-    public void clickStartBtn() {
+    public void clickStartBtn() throws IOException {
         mainGUI.cleanLog("");
         runParse();
 
     }
 
-    private void runParse() {
+    private void runParse() throws IOException {
         message("Начато сканирование.....");
         SiteSettings settings = new SiteSettings(mainGUI.getSiteURL(),
                 mainGUI.getBaseURL(),
@@ -120,6 +120,10 @@ public class MainController implements MainView {
                 mainGUI.getTitleSelector(),
                 mainGUI.getPriceSelector());
         parseSites.ParsingSites(settings);
+    }
+
+    public void setBaseURL(String BASE_URL){
+        mainGUI.setBaseUrl(BASE_URL);
     }
 
     public void startTimer(int time, String message) {

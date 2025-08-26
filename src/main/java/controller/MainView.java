@@ -1,5 +1,5 @@
 package controller;
 
 public interface MainView {
-    void showMessage(String message);
+    <T>void showMessage(T message);
 }

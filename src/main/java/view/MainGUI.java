@@ -311,7 +311,11 @@ public class MainGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 btnVisibleLogonOff();
-                mainController.clickStartBtn();
+                try {
+                    mainController.clickStartBtn();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         loadPath = new JTextField();
@@ -368,7 +372,7 @@ public class MainGUI extends JFrame {
         System.exit(0);
     }
 
-    public void showMessage(String message) {
+    public <T>void showMessage(T message) {
         log.append(message + "\n");
     }
     public void cleanLog(String message){
