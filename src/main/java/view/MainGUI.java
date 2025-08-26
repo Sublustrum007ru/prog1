@@ -315,6 +315,8 @@ public class MainGUI extends JFrame {
                     mainController.clickStartBtn();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
                 }
             }
         });
@@ -364,7 +366,21 @@ public class MainGUI extends JFrame {
             }
         });
         bottomPanel.add(btnClose);
-        
+        btnStart = new JButton("Start");
+        btnStart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnVisibleLogonOff();
+                try {
+                    mainController.clickStartBtn();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+        bottomPanel.add(btnStart);
         return bottomPanel;
     }
 

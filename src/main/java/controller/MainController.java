@@ -105,13 +105,13 @@ public class MainController implements MainView {
         mainGUI.btnVisibleLogonOn();
     }
 
-    public void clickStartBtn() throws IOException {
+    public void clickStartBtn() throws IOException, InterruptedException {
         mainGUI.cleanLog("");
         runParse();
 
     }
 
-    private void runParse() throws IOException {
+    private void runParse() throws IOException, InterruptedException {
         message("Начато сканирование.....");
         SiteSettings settings = new SiteSettings(mainGUI.getSiteURL(),
                 mainGUI.getBaseURL(),
@@ -119,7 +119,7 @@ public class MainController implements MainView {
                 mainGUI.getProductSelector(),
                 mainGUI.getTitleSelector(),
                 mainGUI.getPriceSelector());
-        parseSites.ParsingSites(settings);
+        parseSites.runParse(settings);
     }
 
     public void setBaseURL(String BASE_URL){

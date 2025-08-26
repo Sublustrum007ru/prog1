@@ -2,6 +2,7 @@ package view;
 
 import controller.*;
 import controller.finds.FindBaseUrl;
+import controller.finds.FindCategories;
 import controller.impl.FileOperation;
 
 
@@ -38,6 +39,9 @@ public class Application{
         FindBaseUrl findBaseUrl = new FindBaseUrl();
         parsingSites.setFindBaseURL(findBaseUrl);
         findBaseUrl.setParseSites(parsingSites);
+        FindCategories findCategories = new FindCategories();
+        parsingSites.setFindCategories(findCategories);
+        findCategories.setParsingSites(parsingSites);
 
         mainGUI.showMessage(helloMSG);
 
