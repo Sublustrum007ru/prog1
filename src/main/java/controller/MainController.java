@@ -2,6 +2,8 @@ package controller;
 
 import controller.impl.FileOperation;
 import view.MainGUI;
+import view.PriceSettingsGUI;
+import view.ProductsSettingsGUI;
 
 import java.io.IOException;
 import java.util.Timer;
@@ -9,6 +11,8 @@ import java.util.TimerTask;
 
 public class MainController implements MainView {
     private MainGUI mainGUI;
+    private PriceSettingsGUI priceSettingsGUI;
+    private ProductsSettingsGUI productSettingsGUI;
     private LoginController loginController;
     private FileOperation fileOperation;
     private SiteSettings siteSettings;
@@ -19,6 +23,9 @@ public class MainController implements MainView {
     public void setMainGUI(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
     }
+
+    public void setPriceSettingsGUI(PriceSettingsGUI priceSettingsGUI){this.priceSettingsGUI = priceSettingsGUI;}
+    public void setProductSettingsGUI(ProductsSettingsGUI productSettingsGUI){this.productSettingsGUI = productSettingsGUI;}
 
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
@@ -53,6 +60,13 @@ public class MainController implements MainView {
         mainGUI.showMessage(time.findTime() + message);
     }
 
+    public void clickPriceSettingsBtn(){
+        priceSettingsGUI.setVisibleGUI(true);
+    }
+    public void clickBtnProductSettings(){
+        productSettingsGUI.setVisibleGUI(true);
+    }
+
     public void clickLoadBtn() throws IOException {
         loadSettings();
     }
@@ -66,6 +80,8 @@ public class MainController implements MainView {
         mainGUI.setProductSelector(temp.getProductSelector());
         mainGUI.setTitleSelector(temp.getTitleSelector());
         mainGUI.setPriceSelector(temp.getPriceSelector());
+        priceSettingsGUI.setOldPriceField(temp.getOldPriceSelector());
+        priceSettingsGUI.setCurrenceSymbolField(temp.getCurrencySymbolSelector());
         message("Succesfull");
 
     }
@@ -83,7 +99,9 @@ public class MainController implements MainView {
                 mainGUI.getCategorySelector(),
                 mainGUI.getProductSelector(),
                 mainGUI.getTitleSelector(),
-                mainGUI.getPriceSelector())
+                mainGUI.getPriceSelector(),
+                priceSettingsGUI.getOldPriceField(),
+                priceSettingsGUI.getCurrenceSymbolField())
         );
         startTimer(1000, "Succesfull");
 
@@ -118,7 +136,10 @@ public class MainController implements MainView {
                 mainGUI.getCategorySelector(),
                 mainGUI.getProductSelector(),
                 mainGUI.getTitleSelector(),
-                mainGUI.getPriceSelector());
+                mainGUI.getPriceSelector(),
+                priceSettingsGUI.getOldPriceField(),
+                priceSettingsGUI.getCurrenceSymbolField()
+        );
         parseSites.runParse(settings);
     }
 

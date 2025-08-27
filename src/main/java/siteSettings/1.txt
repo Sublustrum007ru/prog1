@@ -1,1 +1,0 @@
-adamovanails.shop | https://adamovanails.shop/product-category/step-by-step/ | a[href*='/product-category/'] | li.product | .woocommerce-loop-product__title | .woocommerce-Price-amount

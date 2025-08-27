@@ -8,14 +8,18 @@ public class SiteSettings {
     private String productSelector;
     private String titleSelector;
     private String priceSelector;
+    private String oldPriceSelector;
+    private String currencySymbolSelector;
 
-    public SiteSettings(String siteURL, String baseURL, String categorySelector, String productSelector, String titleSelector, String priceSelector) {
+    public SiteSettings(String siteURL, String baseURL, String categorySelector, String productSelector, String titleSelector, String priceSelector, String oldPriceSelector, String currencySymbolSelector) {
         this.siteURL = siteURL;
         this.baseURL = baseURL;
         this.categorySelector = categorySelector;
         this.productSelector = productSelector;
         this.titleSelector = titleSelector;
         this.priceSelector = priceSelector;
+        this.oldPriceSelector = oldPriceSelector;
+        this.currencySymbolSelector = currencySymbolSelector;
     }
 
     public SiteSettings() {
@@ -28,6 +32,8 @@ public class SiteSettings {
         setProductSelector(line[3]);
         setTitleSelector(line[4]);
         setPriceSelector(line[5]);
+        setOldPriceSelector(line[6]);
+        setCurrencySymbolSelector(line[7]);
         return this;
     }
 
@@ -79,10 +85,24 @@ public class SiteSettings {
         this.priceSelector = priceSelector;
     }
 
+    public String getOldPriceSelector() {
+        return oldPriceSelector;
+    }
 
+    public void setOldPriceSelector(String oldPriceSelector) {
+        this.oldPriceSelector = oldPriceSelector;
+    }
+
+    public String getCurrencySymbolSelector() {
+        return currencySymbolSelector;
+    }
+
+    public void setCurrencySymbolSelector(String currencySymbolSelector) {
+        this.currencySymbolSelector = currencySymbolSelector;
+    }
     @Override
     public String toString() {
-        return String.format("%s | %s | %s | %s | %s | %s", siteURL, baseURL, categorySelector, productSelector, titleSelector, priceSelector);
+        return String.format("%s | %s | %s | %s | %s | %s | %s | %s", siteURL, baseURL, categorySelector, productSelector, titleSelector, priceSelector, oldPriceSelector, currencySymbolSelector);
     }
 
 

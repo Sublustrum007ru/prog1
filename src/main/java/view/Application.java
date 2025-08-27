@@ -3,6 +3,7 @@ package view;
 import controller.*;
 import controller.finds.FindBaseUrl;
 import controller.finds.FindCategories;
+import controller.finds.FindProducts;
 import controller.impl.FileOperation;
 
 
@@ -20,6 +21,14 @@ public class Application{
         mainContorller.setFileOperation(fileOperation);
         fileOperation.setMainController(mainContorller);
 
+        PriceSettingsGUI priceSettingsGUI = new PriceSettingsGUI();
+        mainContorller.setPriceSettingsGUI(priceSettingsGUI);
+        priceSettingsGUI.setMainController(mainContorller);
+
+        ProductsSettingsGUI productsSettingsGUI = new ProductsSettingsGUI();
+        mainContorller.setProductSettingsGUI(productsSettingsGUI);
+        productsSettingsGUI.setMainController(mainContorller);
+
         mainContorller.setSiteSettings(new SiteSettings());
 
         FindTime time = new FindTime();
@@ -36,12 +45,18 @@ public class Application{
         ParsingSites parsingSites = new ParsingSites();
         mainContorller.setParseSites(parsingSites);
         parsingSites.setMainController(mainContorller);
+
         FindBaseUrl findBaseUrl = new FindBaseUrl();
         parsingSites.setFindBaseURL(findBaseUrl);
         findBaseUrl.setParseSites(parsingSites);
+
         FindCategories findCategories = new FindCategories();
         parsingSites.setFindCategories(findCategories);
         findCategories.setParsingSites(parsingSites);
+
+        FindProducts findProducts = new FindProducts();
+        parsingSites.setFindProducts(findProducts);
+        findProducts.setParsingSites(parsingSites);
 
         mainGUI.showMessage(helloMSG);
 

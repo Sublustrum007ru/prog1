@@ -49,7 +49,7 @@ public class FileOperation implements Operation {
 
     private void createDefaultFileSettings(String path){
         mainController.message("Создание дефолтного файла");
-        SiteSettings siteSettings = new SiteSettings("default", "default", "default", "default", "default", "default");
+        SiteSettings siteSettings = new SiteSettings("default", "default", "default", "default", "default", "default", "default", "default");
         writeFile(path, siteSettings);
     }
 

@@ -21,7 +21,7 @@ public class MainGUI extends JFrame {
     private static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd:MM:YYYY");
     private static Font font = new Font("Times New Roman", Font.BOLD, 14);
 
-    private final int WIDHT = 1100;
+    private final int WIDTH = 1100;
     private final int HEIGTH = 800;
     private final int LEFTPANEL_WIDHT = 715;
     private final int MIDDLEPANEL_WIDHT = 100;
@@ -32,7 +32,7 @@ public class MainGUI extends JFrame {
     private JTextField siteURL, baseUrl, categorySelector, productSelector, titleSelector, priceSelector, loadPath, savePath;
     private JTextArea log;
     private JScrollPane sp;
-    private JButton btnClose, btnLogon, btnLogoff, btnStart, btnLoad, btnSave;
+    private JButton btnClose, btnLogon, btnLogoff, btnStart, btnLoad, btnSave,btnSettingsSiteName, btnSettingsBaseURLSelector, btnSettingsCategorySelector, btnSettingsProductSelector, btnSettingsTitleSelector, btnSettingsPriceSelector;
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -119,7 +119,7 @@ public class MainGUI extends JFrame {
      */
     private void settings() {
         setTitle("prog1");
-        setSize(WIDHT, HEIGTH);
+        setSize(WIDTH, HEIGTH);
         setFont(font);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -174,15 +174,79 @@ public class MainGUI extends JFrame {
         productSelector = new JTextField(30);
         titleSelector = new JTextField(30);
         priceSelector = new JTextField(30);
-        JLabel[] labels = {lbSiteName, lbBaseUrl, lbCategorySelector, lbProductSelector, lbTitleSelector, lbPriceSelector};
-        JTextField[] fields = {siteURL, baseUrl, categorySelector, productSelector, titleSelector, priceSelector};
+        btnSettingsSiteName = new JButton("+");
+        btnSettingsBaseURLSelector = new JButton("+");
+        btnSettingsBaseURLSelector.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showMessage("Запуск окна с доп настройками для базового урл");
+            }
+        });
+        btnSettingsCategorySelector = new JButton("+");
+        btnSettingsCategorySelector.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showMessage("Запуск окна с доп настройками для категории");
+            }
+        });
+        btnSettingsProductSelector = new JButton("+");
+        btnSettingsProductSelector.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainController.clickBtnProductSettings();
+            }
+        });
+        btnSettingsTitleSelector = new JButton("+");
+        btnSettingsTitleSelector.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showMessage("Запуск окна с доп настройками для названия");
+            }
+        });
+        btnSettingsPriceSelector = new JButton("+");
+        btnSettingsPriceSelector.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainController.clickPriceSettingsBtn();
+            }
+        });
+        JLabel[] labels = {
+                lbSiteName,
+                lbBaseUrl,
+                lbCategorySelector,
+                lbProductSelector,
+                lbTitleSelector,
+                lbPriceSelector
+        };
+        JTextField[] fields = {
+                siteURL,
+                baseUrl,
+                categorySelector,
+                productSelector,
+                titleSelector,
+                priceSelector
+        };
+        JButton[] buttons = {
+                btnSettingsSiteName,
+                btnSettingsBaseURLSelector,
+                btnSettingsCategorySelector,
+                btnSettingsProductSelector,
+                btnSettingsTitleSelector,
+                btnSettingsPriceSelector
+        };
         for (int i = 0; i < labels.length; i++) {
             gbc.gridy = i / 2;
-            gbc.gridx = (i % 2) * 2;
+            gbc.gridx = (i % 2) * 3;
+            gbc.weightx = 0;
             leftPanel.add(labels[i], gbc);
-            gbc.gridx++;
+
+            gbc.gridx = (i % 2) * 3 + 1;
             gbc.weightx = 1.0;
             leftPanel.add(fields[i], gbc);
+
+            gbc.gridx = (i % 2) * 3 + 2;
+            gbc.weightx = 0;
+            leftPanel.add(buttons[i], gbc);
             gbc.weightx = 0;
         }
         return leftPanel;
@@ -323,17 +387,17 @@ public class MainGUI extends JFrame {
         loadPath = new JTextField();
         savePath = new JTextField();
         gbc.gridy = 0;
-        gbc.gridx = 0;
+        gbc.gridx = 1;
         gbc.ipadx = 60;
         rightPanel.add(btnLoad, gbc);
         gbc.gridy = 0;
-        gbc.gridx = 1;
+        gbc.gridx = 0;
         rightPanel.add(loadPath, gbc);
         gbc.gridy = 1;
-        gbc.gridx = 0;
+        gbc.gridx = 1;
         rightPanel.add(btnSave, gbc);
         gbc.gridy = 1;
-        gbc.gridx = 1;
+        gbc.gridx = 0;
         rightPanel.add(savePath, gbc);
         gbc.gridy = 2;
         gbc.gridx = 0;
