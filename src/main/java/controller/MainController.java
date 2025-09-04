@@ -1,5 +1,6 @@
 package controller;
 
+import controller.finds.FindTime;
 import controller.impl.FileOperation;
 import view.MainGUI;
 import view.PriceSettingsGUI;
@@ -73,15 +74,16 @@ public class MainController implements MainView {
 
     private void loadSettings() throws IOException {
         message("Загрузка надстроек.......");
-        SiteSettings temp = siteSettings.createSiteSettings(fileOperation.readFile(mainGUI.getLoadPath()));
-        mainGUI.setSiteURL(temp.getSiteURL());
-        mainGUI.setBaseUrl(temp.getBaseURL());
-        mainGUI.setCategorySelector(temp.getCategorySelector());
-        mainGUI.setProductSelector(temp.getProductSelector());
-        mainGUI.setTitleSelector(temp.getTitleSelector());
-        mainGUI.setPriceSelector(temp.getPriceSelector());
-        priceSettingsGUI.setOldPriceField(temp.getOldPriceSelector());
-        priceSettingsGUI.setCurrenceSymbolField(temp.getCurrencySymbolSelector());
+        SiteSettings setting = fileOperation.readFile(mainGUI.getLoadPath());
+        mainGUI.setSiteURL(setting.getSiteURL());
+        mainGUI.setBaseUrl(setting.getBaseURL());
+        mainGUI.setCategorySelector(setting.getCategorySelector());
+        mainGUI.setProductSelector(setting.getProductSelector());
+        productSettingsGUI.setPaginationSelector(setting.getPaginationSelector());
+        mainGUI.setTitleSelector(setting.getTitleSelector());
+        mainGUI.setPriceSelector(setting.getPriceSelector());
+        priceSettingsGUI.setOldPriceField(setting.getOldPriceSelector());
+        priceSettingsGUI.setCurrenceSymbolField(setting.getCurrencySymbolSelector());
         message("Succesfull");
 
     }
@@ -98,6 +100,7 @@ public class MainController implements MainView {
                 mainGUI.getBaseURL(),
                 mainGUI.getCategorySelector(),
                 mainGUI.getProductSelector(),
+                productSettingsGUI.getPaginationSelector(),
                 mainGUI.getTitleSelector(),
                 mainGUI.getPriceSelector(),
                 priceSettingsGUI.getOldPriceField(),
@@ -135,6 +138,7 @@ public class MainController implements MainView {
                 mainGUI.getBaseURL(),
                 mainGUI.getCategorySelector(),
                 mainGUI.getProductSelector(),
+                productSettingsGUI.getPaginationSelector(),
                 mainGUI.getTitleSelector(),
                 mainGUI.getPriceSelector(),
                 priceSettingsGUI.getOldPriceField(),

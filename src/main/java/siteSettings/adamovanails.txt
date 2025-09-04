@@ -1,1 +1,9 @@
-adamovanails.shop | https://adamovanails.shop/shop | category-grid-item | shop-product-box | woocommerce-loop-product__title | woocommerce-Price-amount | del | span.woocommerce-Price-currencySymbol
+adamovanails.shop
+https://adamovanails.shop/shop
+category-grid-item
+shop-product-box
+-
+woocommerce-loop-product__title
+woocommerce-Price-amount
+del
+span.woocommerce-Price-currencySymbol

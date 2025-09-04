@@ -1,9 +1,7 @@
 package view;
 
 import controller.*;
-import controller.finds.FindBaseUrl;
-import controller.finds.FindCategories;
-import controller.finds.FindProducts;
+import controller.finds.*;
 import controller.impl.FileOperation;
 
 
@@ -58,7 +56,12 @@ public class Application{
         parsingSites.setFindProducts(findProducts);
         findProducts.setParsingSites(parsingSites);
 
+        FindVolume findVolume = new FindVolume();
+        parsingSites.setFindVolume(findVolume);
+        findVolume.setParsingSites(parsingSites);
+
         mainGUI.showMessage(helloMSG);
+
 
 //        new MyNotes();
     }

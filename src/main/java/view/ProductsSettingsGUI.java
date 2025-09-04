@@ -21,11 +21,11 @@ public class ProductsSettingsGUI extends JFrame {
     private JButton btnAccept, btnCansel;
     private JPanel hederPanel, footerePanel;
 
-    public String getPagination() {
+    public String getPaginationSelector() {
         return paginationField.getText();
     }
 
-    public void setPagination(String str) {
+    public void setPaginationSelector(String str) {
         paginationField.setText(str);
     }
 

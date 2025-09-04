@@ -28,8 +28,8 @@ public class MainGUI extends JFrame {
     private final int RIGHTPANEL_WIDHT = 265;
 
     private JPanel topPanel, bottomPanel, rightPanel, leftPanel, middlePanel;
-    private JLabel lbSiteName, lbBaseUrl, lbCategorySelector, lbProductSelector, lbTitleSelector, lbPriceSelector, dateLabel, clockLabel;
-    private JTextField siteURL, baseUrl, categorySelector, productSelector, titleSelector, priceSelector, loadPath, savePath;
+    private JLabel lbSiteName, lbBaseUrl, lbCategorySelector, lbProductSelector, lbPaginationSelector, lbTitleSelector, lbPriceSelector, dateLabel, clockLabel;
+    private JTextField siteURL, baseUrl, categorySelector, productSelector, paginationSelector, titleSelector, priceSelector, loadPath, savePath;
     private JTextArea log;
     private JScrollPane sp;
     private JButton btnClose, btnLogon, btnLogoff, btnStart, btnLoad, btnSave,btnSettingsSiteName, btnSettingsBaseURLSelector, btnSettingsCategorySelector, btnSettingsProductSelector, btnSettingsTitleSelector, btnSettingsPriceSelector;
@@ -123,6 +123,7 @@ public class MainGUI extends JFrame {
         setFont(font);
         setResizable(false);
         setLocationRelativeTo(null);
+
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

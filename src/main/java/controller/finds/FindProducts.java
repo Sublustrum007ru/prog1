@@ -19,6 +19,15 @@ public class FindProducts {
 
     public void setParsingSites(ParsingSites parsingSites){this.parsingSites = parsingSites;}
 
+    public Set<String> testFind(Set<String> targetListURLS, SiteSettings settings) throws IOException {
+        if(settings.getPaginationSelector().equals("-")){
+            System.out.println("Пагинации нет");
+        }else{
+            find(targetListURLS, settings);
+        }
+        return productsList;
+    }
+
     public Set<String> find(Set<String> tergetListURL, SiteSettings settings) throws IOException {
         for (String productsURLS : tergetListURL) {
             Document prodcutsDoc = new MyDocument().getDoc(productsURLS);

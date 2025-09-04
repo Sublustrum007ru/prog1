@@ -6,16 +6,18 @@ public class SiteSettings {
     private String baseURL;
     private String categorySelector;
     private String productSelector;
+    private String paginationSelector;
     private String titleSelector;
     private String priceSelector;
     private String oldPriceSelector;
     private String currencySymbolSelector;
 
-    public SiteSettings(String siteURL, String baseURL, String categorySelector, String productSelector, String titleSelector, String priceSelector, String oldPriceSelector, String currencySymbolSelector) {
+    public SiteSettings(String siteURL, String baseURL, String categorySelector, String productSelector, String paginationSelector, String titleSelector, String priceSelector, String oldPriceSelector, String currencySymbolSelector) {
         this.siteURL = siteURL;
         this.baseURL = baseURL;
         this.categorySelector = categorySelector;
         this.productSelector = productSelector;
+        this.paginationSelector = paginationSelector;
         this.titleSelector = titleSelector;
         this.priceSelector = priceSelector;
         this.oldPriceSelector = oldPriceSelector;
@@ -23,18 +25,6 @@ public class SiteSettings {
     }
 
     public SiteSettings() {
-    }
-
-    public SiteSettings createSiteSettings(String[] line) {
-        setSiteURL(line[0]);
-        setBaseURL(line[1]);
-        setCategorySelector(line[2]);
-        setProductSelector(line[3]);
-        setTitleSelector(line[4]);
-        setPriceSelector(line[5]);
-        setOldPriceSelector(line[6]);
-        setCurrencySymbolSelector(line[7]);
-        return this;
     }
 
     public String getSiteURL() {
@@ -69,6 +59,10 @@ public class SiteSettings {
         this.productSelector = productSelector;
     }
 
+    public String getPaginationSelector(){ return paginationSelector;}
+
+    public void setPaginationSelector(String paginationSelector){this.paginationSelector = paginationSelector;}
+
     public String getTitleSelector() {
         return titleSelector;
     }
@@ -100,10 +94,47 @@ public class SiteSettings {
     public void setCurrencySymbolSelector(String currencySymbolSelector) {
         this.currencySymbolSelector = currencySymbolSelector;
     }
+//    @Override
+//    public String toString() {
+//        return String.format("%s | %s | %s | | %s | %s | %s | %s | %s | %s", siteURL, baseURL, categorySelector, productSelector, paginationSelector, titleSelector, priceSelector, oldPriceSelector, currencySymbolSelector);
+//    }
+
+//    @Override
+//    public String toString() {
+//        return  "siteURL: " + siteURL +
+//                ", baseURL: " + baseURL +
+//                ", categorySelector: " + categorySelector +
+//                ", productSelector: " + productSelector +
+//                ", paginationSelector: " + paginationSelector +
+//                ", titleSelector: " + titleSelector +
+//                ", priceSelector: " + priceSelector +
+//                ", oldPriceSelector: " + oldPriceSelector +
+//                ", currencySymbolSelector: " + currencySymbolSelector
+//                ;
+//    }
     @Override
     public String toString() {
-        return String.format("%s | %s | %s | %s | %s | %s | %s | %s", siteURL, baseURL, categorySelector, productSelector, titleSelector, priceSelector, oldPriceSelector, currencySymbolSelector);
+        return  String.format("SiteURL: %s, BaseURL: %s, CategorySelector: %s, ProductSelector: %s, PaginationSelector: %s, TitleSelector: %s, PriceSelector: %s, OldPriceSelector: %s, CurrencySymbolSelector: %s",
+                new Object[] {
+                        siteURL,
+                        baseURL,
+                        categorySelector,
+                        productSelector,
+                        paginationSelector,
+                        titleSelector,
+                        priceSelector,
+                        oldPriceSelector,
+                        currencySymbolSelector
+        });
     }
+
+//    @Override
+//    public String toString() {
+//        return "Название=" + title +
+//                " | Объем=" + volume +
+//                " | Цена=" + Price +
+//                " ₽";
+//    }
 
 
 }
