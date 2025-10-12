@@ -38,7 +38,7 @@ public class LoginController {
             if(checkPasswd()){
                 loginGUI.setCheckUser("Succesfull");
                 startTimer(1000, loginGUI.getLogin());
-                mainController.setVisbleLogonBtn();
+                mainController.setVisbleLogonBtn(true);
             }else{
                 loginGUI.setCheckUser("Password incorrect");
             }

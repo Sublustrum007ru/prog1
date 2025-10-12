@@ -169,27 +169,15 @@ public class MainGUI extends JFrame {
         lbTitleSelector.setFont(font);
         lbPriceSelector = new JLabel("Price Selector");
         lbPriceSelector.setFont(font);
-        siteURL = new JTextField(30);
-        baseUrl = new JTextField(30);
-        categorySelector = new JTextField(30);
-        productSelector = new JTextField(30);
-        titleSelector = new JTextField(30);
-        priceSelector = new JTextField(30);
+        siteURL = new JTextField();
+        baseUrl = new JTextField();
+        categorySelector = new JTextField();
+        productSelector = new JTextField();
+        titleSelector = new JTextField();
+        priceSelector = new JTextField();
         btnSettingsSiteName = new JButton("+");
         btnSettingsBaseURLSelector = new JButton("+");
-        btnSettingsBaseURLSelector.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showMessage("Запуск окна с доп настройками для базового урл");
-            }
-        });
         btnSettingsCategorySelector = new JButton("+");
-        btnSettingsCategorySelector.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showMessage("Запуск окна с доп настройками для категории");
-            }
-        });
         btnSettingsProductSelector = new JButton("+");
         btnSettingsProductSelector.addActionListener(new ActionListener() {
             @Override
@@ -198,12 +186,6 @@ public class MainGUI extends JFrame {
             }
         });
         btnSettingsTitleSelector = new JButton("+");
-        btnSettingsTitleSelector.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showMessage("Запуск окна с доп настройками для названия");
-            }
-        });
         btnSettingsPriceSelector = new JButton("+");
         btnSettingsPriceSelector.addActionListener(new ActionListener() {
             @Override
@@ -326,8 +308,7 @@ public class MainGUI extends JFrame {
     }
 
     private Component createRightPanel() {
-
-        String name = "";
+        String name = "Load / Save";
         rightPanel = new JPanel();
         rightPanel.setLayout(new GridBagLayout());
         rightPanel.setMinimumSize(new Dimension(RIGHTPANEL_WIDHT, 120));
@@ -365,19 +346,20 @@ public class MainGUI extends JFrame {
             }
         });
         btnLogoff = new JButton("Logoff");
+        btnLogoff.setVisible(false);
         btnLogoff.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainController.clickLogoffBtn();
+                mainController.clickBtnLogoff();
             }
         });
         btnStart = new JButton("Start");
+        btnStart.setVisible(false);
         btnStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                btnVisibleLogonOff();
                 try {
-                    mainController.clickStartBtn();
+                    mainController.clickBtnStart();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 } catch (InterruptedException ex) {
@@ -427,25 +409,10 @@ public class MainGUI extends JFrame {
         btnClose.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainController.setMainGUIVisible();
+                mainController.clickBtnClose();
             }
         });
         bottomPanel.add(btnClose);
-        btnStart = new JButton("Start");
-        btnStart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                btnVisibleLogonOff();
-                try {
-                    mainController.clickStartBtn();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                } catch (InterruptedException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        });
-        bottomPanel.add(btnStart);
         return bottomPanel;
     }
 
@@ -460,16 +427,19 @@ public class MainGUI extends JFrame {
         log.setText(message);
     }
 
-    public void btnVisibleLogonOn(){
-        btnLogon.setVisible(true);
+    public void switchBtnsVisible(Boolean flag){
+//        btnLogon.setVisible(flag);
+//        btnStart.setVisible(!flag);
+//        btnLogoff.setVisible(!flag);
+        if(btnLogon.isVisible()){
+            btnLogon.setVisible(!flag);
+            btnLogoff.setVisible(flag);
+            btnStart.setVisible(flag);
+        }else{
+            btnLogon.setVisible(flag);
+            btnLogoff.setVisible(!flag);
+            btnStart.setVisible(!flag);
+        }
     }
-    public void btnVisibleLogonOff(){
-        btnLogon.setVisible(false);
-    }
-    public void btnVisibleLogoffOn(){
-        btnLogoff.setVisible(true);
-    }
-    public void btnVisibleLogoffOff(){
-        btnLogoff.setVisible(false);
-    }
+
 }

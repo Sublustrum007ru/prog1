@@ -22,7 +22,6 @@ public class FindProducts {
     public Set<String> testFind(Set<String> targetListURLS, SiteSettings settings) throws IOException {
         if(settings.getPaginationSelector().equals("-")){
             System.out.println("Пагинации нет");
-        }else{
             find(targetListURLS, settings);
         }
         return productsList;

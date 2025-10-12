@@ -52,7 +52,7 @@ public class MainController implements MainView {
         showMessage(message);
     }
 
-    public void setMainGUIVisible() {
+    public void clickBtnClose() {
         mainGUI.closeMainGUI();
     }
 
@@ -116,17 +116,19 @@ public class MainController implements MainView {
 
     public void clickLogonBtn() {
         loginController.setVisibleLoginGUI();
+
     }
 
-    public void setVisbleLogonBtn(){
-        mainGUI.btnVisibleLogonOff();
+    public void setVisbleLogonBtn(Boolean flag){
+        System.out.println("flag = " + flag);
+        mainGUI.switchBtnsVisible(flag);
     }
 
-    public void clickLogoffBtn() {
-        mainGUI.btnVisibleLogonOn();
+    public void clickBtnLogoff() {
+        mainGUI.switchBtnsVisible(true);
     }
 
-    public void clickStartBtn() throws IOException, InterruptedException {
+    public void clickBtnStart() throws IOException, InterruptedException {
         mainGUI.cleanLog("");
         runParse();
 

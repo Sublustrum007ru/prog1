@@ -52,7 +52,7 @@ public class ParsingSites {
             parsingSites(tergetURL, settings);
         }
         showMessage("Find categories: " + categoriesList.size());
-        List<String> productsList = new ArrayList<>(findProducts.testFind(categoriesList, settings));
+        List<String> productsList = new ArrayList<>(findProducts.find(categoriesList, settings));
         Collections.sort(productsList);
         for(String productTest : productsList){
             showMessage(productTest);
