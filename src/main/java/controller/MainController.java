@@ -120,7 +120,6 @@ public class MainController implements MainView {
     }
 
     public void setVisbleLogonBtn(Boolean flag){
-        System.out.println("flag = " + flag);
         mainGUI.switchBtnsVisible(flag);
     }
 
