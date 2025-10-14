@@ -70,6 +70,9 @@ public class MainGUI extends JFrame {
         return productSelector.getText();
     }
 
+    public void setPaginationSelector(String str) {paginationSelector.setText(str);}
+    public String getPaginationSelector(){return paginationSelector.getText();}
+
     public void setTitleSelector(String str) {
         titleSelector.setText(str);
     }
@@ -367,11 +370,15 @@ public class MainGUI extends JFrame {
                 }
             }
         });
-        loadPath = new JTextField();
-        savePath = new JTextField();
+        loadPath = new JTextField(100);
+        savePath = new JTextField(100);
+        loadPath.setVisible(false);
+        btnLoad.setVisible(false);
+        savePath.setVisible(false);
+        btnSave.setVisible(false);
         gbc.gridy = 0;
         gbc.gridx = 1;
-        gbc.ipadx = 60;
+        gbc.ipadx = 55;
         rightPanel.add(btnLoad, gbc);
         gbc.gridy = 0;
         gbc.gridx = 0;
@@ -432,10 +439,18 @@ public class MainGUI extends JFrame {
 //        btnStart.setVisible(!flag);
 //        btnLogoff.setVisible(!flag);
         if(btnLogon.isVisible()){
+            loadPath.setVisible(flag);
+            btnLoad.setVisible(flag);
+            savePath.setVisible(flag);
+            btnSave.setVisible(flag);
             btnLogon.setVisible(!flag);
             btnLogoff.setVisible(flag);
             btnStart.setVisible(flag);
         }else{
+            loadPath.setVisible(!flag);
+            btnLoad.setVisible(!flag);
+            savePath.setVisible(!flag);
+            btnSave.setVisible(!flag);
             btnLogon.setVisible(flag);
             btnLogoff.setVisible(!flag);
             btnStart.setVisible(!flag);

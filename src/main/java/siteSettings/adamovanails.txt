@@ -1,9 +1,1 @@
-adamovanails.shop
-https://adamovanails.shop/shop
-category-grid-item
-shop-product-box
--
-woocommerce-loop-product__title
-woocommerce-Price-amount
-del
-span.woocommerce-Price-currencySymbol
+SiteURL: adamovanails.shop, BaseURL: https://adamovanails.shop/shop, CategorySelector: category-grid-item, ProductSelector: shop-product-box, PaginationSelector: -, TitleSelector: woocommerce-loop-product__title, PriceSelector: woocommerce-Price-amount, OldPriceSelector: del, CurrencySymbolSelector: span.woocommerce-Price-currencySymbol
