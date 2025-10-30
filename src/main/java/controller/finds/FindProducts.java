@@ -17,10 +17,12 @@ public class FindProducts {
 
     private ParsingSites parsingSites;
 
-    public void setParsingSites(ParsingSites parsingSites){this.parsingSites = parsingSites;}
+    public void setParsingSites(ParsingSites parsingSites) {
+        this.parsingSites = parsingSites;
+    }
 
     public Set<String> testFind(Set<String> targetListURLS, SiteSettings settings) throws IOException {
-        if(settings.getPaginationSelector().equals("-")){
+        if (settings.getPaginationSelector().equals("-")) {
             System.out.println("Пагинации нет");
             find(targetListURLS, settings);
         }
@@ -51,11 +53,11 @@ public class FindProducts {
         if (element.selectFirst(settings.getOldPriceSelector()) != null) {
             element.selectFirst(settings.getOldPriceSelector()).remove();
         }
-        if(element.selectFirst(settings.getCurrencySymbolSelector()) != null){
+        if (element.selectFirst(settings.getCurrencySymbolSelector()) != null) {
             element.selectFirst(settings.getCurrencySymbolSelector()).remove();
         }
         priceProduct = element.getElementsByClass(settings.getPriceSelector()).text();
-        if(priceProduct.isEmpty()){
+        if (priceProduct.isEmpty()) {
             priceProduct = "Не найдена";
         }
         return priceProduct;
