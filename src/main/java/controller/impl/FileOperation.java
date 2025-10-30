@@ -37,9 +37,19 @@ public class FileOperation implements Operation {
                     continue;
                 }
                 lineObject[counter++] = line;
+                System.out.println("line = " + line);
                 if (counter == 9) {
                     counter = 0;
-                    setting = new SiteSettings(lineObject[0], lineObject[1], lineObject[2], lineObject[3], lineObject[4], lineObject[5], lineObject[6], lineObject[7], lineObject[8]);
+                    setting = new SiteSettings(
+                            lineObject[0],
+                            lineObject[1],
+                            lineObject[2],
+                            lineObject[3],
+                            lineObject[4],
+                            lineObject[5],
+                            lineObject[6],
+                            lineObject[7],
+                            lineObject[8]);
                 }
             }
         } catch (IOException e) {
@@ -51,6 +61,7 @@ public class FileOperation implements Operation {
             showMessage("Файла не существует. Чтение из дефолтного файла. " + PATH_DIR + path + SUFFICS_PATH);
             readFile(path);
         }
+        System.out.println("setting = " + setting);
         return setting;
     }
 

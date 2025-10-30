@@ -108,6 +108,7 @@ public class MainGUI extends JFrame {
     public MainGUI() {
         settings();
         createPanels();
+
         setVisible(true);
     }
 
@@ -121,7 +122,7 @@ public class MainGUI extends JFrame {
      * setDefaultCloseOperaion() - Параметр задающий дествия при закрытие окна.
      */
     private void settings() {
-        setTitle("prog1");
+        setTitle("Parsing Site's");
         setSize(WIDTH, HEIGTH);
         setFont(font);
         setResizable(false);
