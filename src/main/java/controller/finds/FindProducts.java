@@ -23,7 +23,6 @@ public class FindProducts {
 
     public Set<String> testFind(Set<String> targetListURLS, SiteSettings settings) throws IOException {
         if (settings.getPaginationSelector().equals("-")) {
-            System.out.println("Пагинации нет");
             find(targetListURLS, settings);
         }
         return productsList;
@@ -67,5 +66,9 @@ public class FindProducts {
         if (!productsList.contains(newProduct)) {
             productsList.add(newProduct);
         }
+    }
+
+    private <T>void showMesage(T str){
+        parsingSites.showMessage(str);
     }
 }

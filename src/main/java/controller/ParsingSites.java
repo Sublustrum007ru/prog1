@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.*;
 
 
-public class ParsingSites {
+public class ParsingSites implements MainView{
 
     private Set<String> categoriesList = new HashSet<>();
     private Queue<String> urlQueue = new LinkedList<>();
@@ -51,13 +51,13 @@ public class ParsingSites {
             String tergetURL = urlQueue.poll();
             parsingSites(tergetURL, settings);
         }
-        showMessage("Find categories: " + categoriesList.size());
+        showMessage("Поиск категорий: " + categoriesList.size());
         List<String> productsList = new ArrayList<>(findProducts.testFind(categoriesList, settings));
         Collections.sort(productsList);
         for(String productTest : productsList){
             showMessage(productTest);
         }
-        showMessage("Find products: " + productsList.size());
+        showMessage("Поиск товаров: " + productsList.size());
     }
 
     private void parsingSites(String URL, SiteSettings settings) throws IOException {
@@ -79,6 +79,7 @@ public class ParsingSites {
         }
     }
 
+    @Override
     public <T> void showMessage(T message) {
         mainController.message(message);
     }

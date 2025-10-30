@@ -1,6 +1,7 @@
 package view;
 
 import controller.MainController;
+import controller.MainView;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class MainGUI extends JFrame {
+public class MainGUI extends JFrame implements MainView {
     private MainController mainController;
 
     private Timer timer;
@@ -110,6 +111,7 @@ public class MainGUI extends JFrame {
         createPanels();
 
         setVisible(true);
+        repaint();
     }
 
     /***
@@ -428,6 +430,7 @@ public class MainGUI extends JFrame {
         System.exit(0);
     }
 
+    @Override
     public <T>void showMessage(T message) {
         log.append(message + "\n");
     }
@@ -436,9 +439,6 @@ public class MainGUI extends JFrame {
     }
 
     public void switchBtnsVisible(Boolean flag){
-//        btnLogon.setVisible(flag);
-//        btnStart.setVisible(!flag);
-//        btnLogoff.setVisible(!flag);
         if(btnLogon.isVisible()){
             loadPath.setVisible(flag);
             btnLoad.setVisible(flag);

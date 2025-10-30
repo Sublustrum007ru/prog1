@@ -3,6 +3,7 @@ package view;
 import controller.*;
 import controller.finds.*;
 import controller.impl.FileOperation;
+import util.SearchMaxNumb;
 
 
 public class Application{

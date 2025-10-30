@@ -2,13 +2,14 @@ package controller.impl;
 
 
 import controller.MainController;
+import controller.MainView;
 import controller.Operation;
 import controller.SiteSettings;
 import java.io.*;
 
 import static util.Validator.isNotEmptySiteSettings;
 
-public class FileOperation implements Operation {
+public class FileOperation implements Operation, MainView {
     private MainController mainController = new MainController();
 
     private final String PATH_DIR = "src/main/java/siteSettings/";
@@ -37,7 +38,6 @@ public class FileOperation implements Operation {
                     continue;
                 }
                 lineObject[counter++] = line;
-                System.out.println("line = " + line);
                 if (counter == 9) {
                     counter = 0;
                     setting = new SiteSettings(
@@ -61,7 +61,6 @@ public class FileOperation implements Operation {
             showMessage("Файла не существует. Чтение из дефолтного файла. " + PATH_DIR + path + SUFFICS_PATH);
             readFile(path);
         }
-        System.out.println("setting = " + setting);
         return setting;
     }
 
@@ -112,8 +111,8 @@ public class FileOperation implements Operation {
             }
         }
     }
-
-    private <T>void showMessage(T message){
+    @Override
+    public <T>void showMessage(T message){
         mainController.showMessage(message);
     }
 
