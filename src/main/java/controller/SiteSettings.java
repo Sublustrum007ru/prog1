@@ -114,7 +114,15 @@ public class SiteSettings {
 //    }
     @Override
     public String toString() {
-        return  String.format("SiteURL: %s, BaseURL: %s, CategorySelector: %s, ProductSelector: %s, PaginationSelector: %s, TitleSelector: %s, PriceSelector: %s, OldPriceSelector: %s, CurrencySymbolSelector: %s",
+        return  String.format("%s\n" +
+                        "%s\n" +
+                        "%s\n" +
+                        "%s\n" +
+                        "%s\n" +
+                        "%s\n" +
+                        "%s\n" +
+                        "%s\n" +
+                        "%s",
                 new Object[] {
                         siteURL,
                         baseURL,
@@ -127,14 +135,4 @@ public class SiteSettings {
                         currencySymbolSelector
         });
     }
-
-//    @Override
-//    public String toString() {
-//        return "Название=" + title +
-//                " | Объем=" + volume +
-//                " | Цена=" + Price +
-//                " ₽";
-//    }
-
-
 }

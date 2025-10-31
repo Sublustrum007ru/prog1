@@ -3,7 +3,6 @@ package view;
 import controller.*;
 import controller.finds.*;
 import controller.impl.FileOperation;
-import util.SearchMaxNumb;
 
 
 public class Application{
@@ -54,12 +53,8 @@ public class Application{
         findCategories.setParsingSites(parsingSites);
 
         FindProducts findProducts = new FindProducts();
-        parsingSites.setFindProducts(findProducts);
+        parsingSites.setTestFindProduct(findProducts);
         findProducts.setParsingSites(parsingSites);
-
-        FindVolume findVolume = new FindVolume();
-        parsingSites.setFindVolume(findVolume);
-        findVolume.setParsingSites(parsingSites);
 
         mainGUI.showMessage(helloMSG);
 

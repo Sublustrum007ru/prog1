@@ -1,10 +1,7 @@
 package controller;
 
-import controller.finds.FindBaseUrl;
+import controller.finds.*;
 
-import controller.finds.FindCategories;
-import controller.finds.FindProducts;
-import controller.finds.FindVolume;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
@@ -22,7 +19,6 @@ public class ParsingSites implements MainView{
     private MainController mainController;
     private FindCategories findCategories;
     private FindProducts findProducts;
-    private FindVolume findVolume;
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -36,8 +32,9 @@ public class ParsingSites implements MainView{
         this.findCategories = findCategories;
     }
 
-    public void setFindProducts(FindProducts findProducts){this.findProducts = findProducts;}
-    public void setFindVolume(FindVolume findVolume){this.findVolume = findVolume;}
+    public void setTestFindProduct(FindProducts findProducts){
+        this.findProducts = findProducts;
+    }
 
     public void runParse(SiteSettings settings) throws IOException, InterruptedException {
         if (settings.getBaseURL().isEmpty() || settings.getBaseURL().equals("Not Found")) {
@@ -51,18 +48,23 @@ public class ParsingSites implements MainView{
             String tergetURL = urlQueue.poll();
             parsingSites(tergetURL, settings);
         }
-        showMessage("Поиск категорий: " + categoriesList.size());
-        List<String> productsList = new ArrayList<>(findProducts.testFind(categoriesList, settings));
-        Collections.sort(productsList);
+        showMessage("Найдено категорий: " + categoriesList.size());
+        List<String> productsList = findProducts.find(categoriesList, settings);
         for(String productTest : productsList){
             showMessage(productTest);
         }
-        showMessage("Поиск товаров: " + productsList.size());
+        showMessage("Найдено товаров: " + productsList.size());
     }
 
     private void parsingSites(String URL, SiteSettings settings) throws IOException {
         try {
             Document doc = new MyDocument().getDoc(URL);
+            Set<String> temp = null;
+            temp = findCategories.find(doc, settings);
+            updateCategoriesList(temp);
+            for(String str : temp){
+                System.out.println(str);
+            }
             Set<String> tempCategoriesList = findCategories.find(doc, settings);
             updateCategoriesList(tempCategoriesList);
         } catch (Exception e) {
@@ -78,6 +80,7 @@ public class ParsingSites implements MainView{
             }
         }
     }
+
 
     @Override
     public <T> void showMessage(T message) {

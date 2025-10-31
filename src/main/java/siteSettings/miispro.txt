@@ -1,1 +1,9 @@
-miis.pro | https://miis.pro/catalog | product col-md-2 col-sm-6 col-6 | product-card | product-title | product-price
+miis.pro
+https://miis.pro/catalog
+product col-md-2 col-sm-6 col-6
+product col-md-4 col-sm-6 col-12
+page-link
+product-a
+product-price text-center
+del.mr-2
+icon-ruble-sign ml-1
