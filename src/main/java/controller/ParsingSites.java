@@ -58,7 +58,6 @@ public class ParsingSites {
             showMessage(productTest);
         }
         showMessage("Find products: " + productsList.size());
-
     }
 
     private void parsingSites(String URL, SiteSettings settings) throws IOException {

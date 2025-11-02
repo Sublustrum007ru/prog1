@@ -135,7 +135,8 @@ public class MainController implements MainView {
 
     private void runParse() throws IOException, InterruptedException {
         message("Начато сканирование.....");
-        SiteSettings settings = new SiteSettings(mainGUI.getSiteURL(),
+        SiteSettings settings = new SiteSettings(
+                mainGUI.getSiteURL(),
                 mainGUI.getBaseURL(),
                 mainGUI.getCategorySelector(),
                 mainGUI.getProductSelector(),

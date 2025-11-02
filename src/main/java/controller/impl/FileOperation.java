@@ -37,7 +37,6 @@ public class FileOperation implements Operation {
                     continue;
                 }
                 lineObject[counter++] = line;
-                System.out.println("line = " + line);
                 if (counter == 9) {
                     counter = 0;
                     setting = new SiteSettings(
@@ -61,7 +60,6 @@ public class FileOperation implements Operation {
             showMessage("Файла не существует. Чтение из дефолтного файла. " + PATH_DIR + path + SUFFICS_PATH);
             readFile(path);
         }
-        System.out.println("setting = " + setting);
         return setting;
     }
 
