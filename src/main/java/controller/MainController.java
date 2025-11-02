@@ -25,8 +25,13 @@ public class MainController implements MainView {
         this.mainGUI = mainGUI;
     }
 
-    public void setPriceSettingsGUI(PriceSettingsGUI priceSettingsGUI){this.priceSettingsGUI = priceSettingsGUI;}
-    public void setProductSettingsGUI(ProductsSettingsGUI productSettingsGUI){this.productSettingsGUI = productSettingsGUI;}
+    public void setPriceSettingsGUI(PriceSettingsGUI priceSettingsGUI) {
+        this.priceSettingsGUI = priceSettingsGUI;
+    }
+
+    public void setProductSettingsGUI(ProductsSettingsGUI productSettingsGUI) {
+        this.productSettingsGUI = productSettingsGUI;
+    }
 
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
@@ -40,7 +45,7 @@ public class MainController implements MainView {
         this.siteSettings = siteSettings;
     }
 
-    public void setParseSites(ParsingSites parsingSites){
+    public void setParseSites(ParsingSites parsingSites) {
         this.parseSites = parsingSites;
     }
 
@@ -48,7 +53,7 @@ public class MainController implements MainView {
         this.time = time;
     }
 
-    public <T>void message(T message) {
+    public <T> void message(T message) {
         showMessage(message);
     }
 
@@ -57,14 +62,15 @@ public class MainController implements MainView {
     }
 
     @Override
-    public <T>void showMessage(T message) {
+    public <T> void showMessage(T message) {
         mainGUI.showMessage(time.findTime() + message);
     }
 
-    public void clickPriceSettingsBtn(){
+    public void clickPriceSettingsBtn() {
         priceSettingsGUI.setVisibleGUI(true);
     }
-    public void clickBtnProductSettings(){
+
+    public void clickBtnProductSettings() {
         productSettingsGUI.setVisibleGUI(true);
     }
 
@@ -119,7 +125,7 @@ public class MainController implements MainView {
 
     }
 
-    public void setVisbleLogonBtn(Boolean flag){
+    public void setVisbleLogonBtn(Boolean flag) {
         mainGUI.switchBtnsVisible(flag);
     }
 
@@ -129,6 +135,7 @@ public class MainController implements MainView {
 
     public void clickBtnStart() throws IOException, InterruptedException {
         mainGUI.cleanLog("");
+        mainGUI.repaint();
         runParse();
 
     }
@@ -149,7 +156,7 @@ public class MainController implements MainView {
         parseSites.runParse(settings);
     }
 
-    public void setBaseURL(String BASE_URL){
+    public void setBaseURL(String BASE_URL) {
         mainGUI.setBaseUrl(BASE_URL);
     }
 

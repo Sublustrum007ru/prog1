@@ -56,10 +56,6 @@ public class Application{
         parsingSites.setFindProducts(findProducts);
         findProducts.setParsingSites(parsingSites);
 
-        FindVolume findVolume = new FindVolume();
-        parsingSites.setFindVolume(findVolume);
-        findVolume.setParsingSites(parsingSites);
-
         mainGUI.showMessage(helloMSG);
 
 

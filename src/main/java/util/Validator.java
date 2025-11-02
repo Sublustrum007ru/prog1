@@ -47,4 +47,15 @@ public class Validator{
                 !name.equalsIgnoreCase(".*\\d+.*");
         return validPattern && validName;
     }
+
+    public boolean isNumber(String str){
+        boolean result;
+        try{
+            Integer.parseInt(str);
+            result = true;
+        }catch(NumberFormatException e){
+            result = false;
+        }
+        return result;
+    }
 } 

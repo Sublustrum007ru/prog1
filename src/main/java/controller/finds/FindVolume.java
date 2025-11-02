@@ -1,8 +1,9 @@
 package controller.finds;
 
+import controller.MainView;
 import controller.ParsingSites;
 
-public class FindVolume {
+public class FindVolume implements MainView {
     String volume;
     private ParsingSites parsingSites;
 
@@ -21,4 +22,8 @@ public class FindVolume {
         return result;
     }
 
+    @Override
+    public <T> void showMessage(T message) {
+
+    }
 }

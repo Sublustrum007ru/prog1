@@ -40,30 +40,36 @@ public class ParsingSites {
     public void setFindVolume(FindVolume findVolume){this.findVolume = findVolume;}
 
     public void runParse(SiteSettings settings) throws IOException, InterruptedException {
+        System.out.println("Run Parsing");
         if (settings.getBaseURL().isEmpty() || settings.getBaseURL().equals("Not Found")) {
             BASE_URL = findBaseURL.getBaseUrl(settings);
         } else {
             BASE_URL = settings.getBaseURL();
         }
+        System.out.println("1");
         mainController.setBaseURL(BASE_URL);
         urlQueue.add(BASE_URL);
+        System.out.println("2");
         while (!urlQueue.isEmpty()) {
             String tergetURL = urlQueue.poll();
             parsingSites(tergetURL, settings);
         }
         showMessage("Find categories: " + categoriesList.size());
-        List<String> productsList = new ArrayList<>(findProducts.find(categoriesList, settings));
-        Collections.sort(productsList);
-        for(String productTest : productsList){
-            showMessage(productTest);
-        }
-        showMessage("Find products: " + productsList.size());
+//        List<String> productsList = new ArrayList<>(findProducts.find(categoriesList, settings));
+//        Collections.sort(productsList);
+//        for(String product : productsList){
+//            showMessage(product);
+//        }
+//        showMessage("Find products: " + productsList.size());
+
     }
 
     private void parsingSites(String URL, SiteSettings settings) throws IOException {
+        Set<String> tempCategoriesList = new HashSet<>();
+        tempCategoriesList.clear();
         try {
             Document doc = new MyDocument().getDoc(URL);
-            Set<String> tempCategoriesList = findCategories.find(doc, settings);
+            tempCategoriesList = findCategories.find(doc, settings);
             updateCategoriesList(tempCategoriesList);
         } catch (Exception e) {
             showMessage("No connection to: >>>" + settings.getBaseURL() + "<<<");
