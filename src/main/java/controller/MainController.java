@@ -153,7 +153,7 @@ public class MainController implements MainView {
                 priceSettingsGUI.getOldPriceField(),
                 priceSettingsGUI.getCurrenceSymbolField()
         );
-        parseSites.runParse(settings);
+        parseSites.runParsing(settings);
     }
 
     public void setBaseURL(String BASE_URL) {

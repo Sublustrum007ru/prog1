@@ -19,7 +19,7 @@ public class MyNotes extends JFrame {
 
     private void createPanels(){
         JTextArea log = new JTextArea();
-        String message = "Доработать окно.\nСделать так чтобы была проверка на логин. Если успех то появляются кнопки выйти и старт";
+        String message = "Переписать ParsingSites, убрать из него создания списка категорий";
         log.setText(message);
         log.setLineWrap(true);
         log.setWrapStyleWord(true);

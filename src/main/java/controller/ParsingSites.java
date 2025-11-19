@@ -4,17 +4,12 @@ import controller.finds.FindBaseUrl;
 
 import controller.finds.FindCategories;
 import controller.finds.FindProducts;
-import controller.finds.FindVolume;
-import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Set;
 
 
 public class ParsingSites {
-
-    private Set<String> categoriesList = new HashSet<>();
-    private Queue<String> urlQueue = new LinkedList<>();
 
     private String BASE_URL;
     private FindBaseUrl findBaseURL;
@@ -22,7 +17,6 @@ public class ParsingSites {
     private MainController mainController;
     private FindCategories findCategories;
     private FindProducts findProducts;
-    private FindVolume findVolume;
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -36,54 +30,21 @@ public class ParsingSites {
         this.findCategories = findCategories;
     }
 
-    public void setFindProducts(FindProducts findProducts){this.findProducts = findProducts;}
-    public void setFindVolume(FindVolume findVolume){this.findVolume = findVolume;}
+    public void setFindProducts(FindProducts findProducts) {
+        this.findProducts = findProducts;
+    }
 
-    public void runParse(SiteSettings settings) throws IOException, InterruptedException {
-        System.out.println("Run Parsing");
+    public void runParsing(SiteSettings settings) throws IOException {
         if (settings.getBaseURL().isEmpty() || settings.getBaseURL().equals("Not Found")) {
             BASE_URL = findBaseURL.getBaseUrl(settings);
         } else {
             BASE_URL = settings.getBaseURL();
         }
-        System.out.println("1");
         mainController.setBaseURL(BASE_URL);
-        urlQueue.add(BASE_URL);
-        System.out.println("2");
-        while (!urlQueue.isEmpty()) {
-            String tergetURL = urlQueue.poll();
-            parsingSites(tergetURL, settings);
-        }
-        showMessage("Find categories: " + categoriesList.size());
-//        List<String> productsList = new ArrayList<>(findProducts.find(categoriesList, settings));
-//        Collections.sort(productsList);
-//        for(String product : productsList){
-//            showMessage(product);
-//        }
-//        showMessage("Find products: " + productsList.size());
+        findCategories.find(BASE_URL, settings);
 
     }
 
-    private void parsingSites(String URL, SiteSettings settings) throws IOException {
-        Set<String> tempCategoriesList = new HashSet<>();
-        tempCategoriesList.clear();
-        try {
-            Document doc = new MyDocument().getDoc(URL);
-            tempCategoriesList = findCategories.find(doc, settings);
-            updateCategoriesList(tempCategoriesList);
-        } catch (Exception e) {
-            showMessage("No connection to: >>>" + settings.getBaseURL() + "<<<");
-        }
-    }
-
-    private void updateCategoriesList(Set<String> newCategoriesList) {
-        for (String newCategory : newCategoriesList) {
-            if (!categoriesList.contains(newCategory)) {
-                categoriesList.add(newCategory);
-                urlQueue.add(newCategory);
-            }
-        }
-    }
 
     public <T> void showMessage(T message) {
         mainController.message(message);
