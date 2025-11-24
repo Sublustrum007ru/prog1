@@ -7,9 +7,6 @@ import controller.impl.FileOperation;
 
 public class Application{
     public Application(){
-        String helloMSG = "Hello World!!!\nMy name is Sublustrum007";
-        promt(helloMSG);
-
         MainGUI mainGUI = new MainGUI();
         MainController mainContorller = new MainController();
         mainContorller.setMainGUI(mainGUI);
@@ -57,9 +54,6 @@ public class Application{
         findProducts.setParsingSites(parsingSites);
 
         mainGUI.showMessage(helloMSG);
-
-
-//        new MyNotes();
     }
     public static void promt(String str){ 
         System.out.println(str); 
