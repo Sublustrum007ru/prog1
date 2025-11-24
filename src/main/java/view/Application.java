@@ -7,6 +7,7 @@ import controller.impl.FileOperation;
 
 public class Application{
     public Application(){
+        String helloMSG = "Hello World!!!\nMy name is Sublustrum007!!";
         MainGUI mainGUI = new MainGUI();
         MainController mainContorller = new MainController();
         mainContorller.setMainGUI(mainGUI);
