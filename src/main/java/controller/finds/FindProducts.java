@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class FindProducts implements MainView {
-    private Set<String> productListURLS = new HashSet<>();
+    private Set<String> productsListURLS = new HashSet<>();
     private Queue<String> urlQueue = new LinkedList<>();
     private Set<String> productsList = new HashSet<>();
 
@@ -25,12 +25,16 @@ public class FindProducts implements MainView {
         this.parsingSites = parsingSites;
     }
 
-    public List<String> find(Set<String> targetURL, SiteSettings settings) throws IOException {
-        for (String tempURL : targetURL) {
-            checkPagination(tempURL, settings);
+    public List<String> find(List<String> targetsURL, SiteSettings settings) throws IOException {
+        productsList.clear();
+        urlQueue.clear();
+        productsListURLS.clear();
+        for (String targetURL : targetsURL) {
+            checkPagination(targetURL, settings);
         }
-        Set<String> tempProductsListURLS = new HashSet<>(productListURLS);
-        f(tempProductsListURLS, settings);
+        List<String> tempSortProductsListURLS = new ArrayList<>(productsListURLS);
+        Collections.sort(tempSortProductsListURLS);
+        extrackProduct(tempSortProductsListURLS, settings);
         List<String> sortListProdutcs = new ArrayList<>(productsList);
         Collections.sort(sortListProdutcs);
         return sortListProdutcs;
@@ -40,24 +44,24 @@ public class FindProducts implements MainView {
         Document doc = new MyDocument().getDoc(URL);
         Elements pagination = doc.getElementsByClass(settings.getPaginationSelector());
         if (pagination.isEmpty()) {
-            updateproductListURLS(URL);
+            updateproductsListURLS(URL);
         } else {
             for (int i = 1; i <= serchMaxNumb.search(pagination.text()); i++) {
-                updateproductListURLS(URL + "?page=" + i);
+                updateproductsListURLS(URL + "?page=" + i);
             }
         }
     }
 
-    private void updateproductListURLS(String newProductURL) {
-        if (!productListURLS.contains(newProductURL)) {
-            productListURLS.add(newProductURL);
+    private void updateproductsListURLS(String newProductURL) {
+        if (!productsListURLS.contains(newProductURL)) {
+            productsListURLS.add(newProductURL);
             urlQueue.add(newProductURL);
         }
     }
 
-    public Set<String> f(Set<String> targetListURLS, SiteSettings settings) throws IOException {
-        for (String productsURLS : targetListURLS) {
-            Document prodcutsDoc = new MyDocument().getDoc(productsURLS);
+    public void extrackProduct(List<String> targetListURLS, SiteSettings settings) throws IOException {
+        for (String targetURL : targetListURLS) {
+            Document prodcutsDoc = new MyDocument().getDoc(targetURL);
             Elements products = prodcutsDoc.getElementsByClass(settings.getProductSelector());
             for (Element product : products) {
                 String titleProduct = extractTitleProduct(product, settings);
@@ -65,7 +69,6 @@ public class FindProducts implements MainView {
                 updateProductsList(titleProduct + " | " + priceProdcut + " ₽");
             }
         }
-        return productsList;
     }
 
     private String extractTitleProduct(Element element, SiteSettings settings) {

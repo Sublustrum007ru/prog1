@@ -21,15 +21,17 @@ public class FindCategories {
         this.parsingSites = parsingSites;
     }
 
-    public void find(String BASE_URL, SiteSettings settings) throws IOException {
+    public List<String> find(String BASE_URL, SiteSettings settings) throws IOException {
         categoriesList.clear();
         urlQueue.clear();
         urlQueue.add(BASE_URL);
         while (!urlQueue.isEmpty()) {
-            String tergetURL = urlQueue.poll();
-            parsing(tergetURL, settings);
+            String targetURL = urlQueue.poll();
+            parsing(targetURL, settings);
         }
-        parsingSites.showMessage(categoriesList.size());
+        List<String> sortCategoryList = new ArrayList<>(categoriesList);
+        Collections.sort(sortCategoryList);
+        return sortCategoryList;
     }
 
     private void parsing(String URL, SiteSettings settings) throws IOException {
@@ -38,8 +40,8 @@ public class FindCategories {
             Document doc = new MyDocument().getDoc(URL);
             Elements categoryElements = doc.getElementsByClass(settings.getCategorySelector());
             for (Element el : categoryElements) {
-                String href = el.select("a[href]").attr("href");
-                tempList.add(settings.getSiteURL() + href);
+                Element link = el.selectFirst("a[href]");
+                tempList.add(link.absUrl("href"));
             }
             updateCategoryList(tempList);
         } catch (Exception e) {
