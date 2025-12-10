@@ -6,11 +6,13 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileOutputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 public class SaveToExcel {
     List<String> list = new ArrayList<>();
-
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd_MMM_yyyy");
 
     private MainController mainController;
 
@@ -18,13 +20,14 @@ public class SaveToExcel {
         this.mainController = mainController;
     }
 
-    public void Save(List<String> list) {
-        SaveToFile1(list);
+    public void Save(List<String> list, String fileName) {
+        SaveToFile1(list, fileName);
     }
 
-    public void SaveToFile1(List<String> list) {
+    public void SaveToFile1(List<String> list, String fileName) {
         Workbook workbook = new XSSFWorkbook();
-        Sheet newSheet = workbook.createSheet("Test");
+        String date = LocalDate.now().format(dateFormatter);
+        Sheet newSheet = workbook.createSheet(date);
         for (int i = 0; i < list.size(); i++) {
             String[] str = list.get(i).split(" \\| ");
             String name = str[0];
@@ -34,7 +37,7 @@ public class SaveToExcel {
             row.createCell(1).setCellValue(price);
         }
         try {
-            FileOutputStream fileOut = new FileOutputStream("C:\\Users\\user\\Documents\\test1.xlsx");
+            FileOutputStream fileOut = new FileOutputStream("C:\\Users\\user\\Documents\\"+fileName+".xlsx");
             workbook.write(fileOut);
             fileOut.close();
             System.out.println("File create!!!");

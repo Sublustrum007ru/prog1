@@ -166,7 +166,7 @@ public class MainController implements MainView {
     }
 
     public void saveToExcel() {
-        saveToExcel.Save(list);
+        saveToExcel.Save(list, mainGUI.getLoadPath());
     }
 
     public void setBaseURL(String BASE_URL) {
