@@ -33,7 +33,7 @@ public class MainGUI extends JFrame implements MainView {
     private JTextField siteURL, baseUrl, categorySelector, productSelector, paginationSelector, titleSelector, priceSelector, loadPath, savePath;
     private JTextArea log;
     private JScrollPane sp;
-    private JButton btnClose, btnLogon, btnLogoff, btnStart, btnLoad, btnSave,btnSettingsSiteName, btnSettingsBaseURLSelector, btnSettingsCategorySelector, btnSettingsProductSelector, btnSettingsTitleSelector, btnSettingsPriceSelector;
+    private JButton btnClose, btnLogon, btnLogoff, btnStart, btnLoad, btnSave,btnSettingsSiteName, btnSettingsBaseURLSelector, btnSettingsCategorySelector, btnSettingsProductSelector, btnSettingsTitleSelector, btnSettingsPriceSelector, btnExport;
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -422,7 +422,16 @@ public class MainGUI extends JFrame implements MainView {
                 mainController.clickBtnClose();
             }
         });
+        btnExport = new JButton("EXPORT");
+        btnExport.setFont(font);
+        btnExport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainController.saveToExcel();
+            }
+        });
         bottomPanel.add(btnClose);
+        bottomPanel.add(btnExport);
         return bottomPanel;
     }
 

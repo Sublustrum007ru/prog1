@@ -54,6 +54,10 @@ public class Application{
         parsingSites.setFindProducts(findProducts);
         findProducts.setParsingSites(parsingSites);
 
+        SaveToExcel saveToExcel = new SaveToExcel();
+        mainContorller.setSaveToExcel(saveToExcel);
+        saveToExcel.setMainController(mainContorller);
+
         mainGUI.showMessage(helloMSG);
     }
     public static void promt(String str){ 

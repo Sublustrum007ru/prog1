@@ -7,6 +7,8 @@ import view.PriceSettingsGUI;
 import view.ProductsSettingsGUI;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,7 +21,14 @@ public class MainController implements MainView {
     private SiteSettings siteSettings;
     private FindTime time;
     private ParsingSites parseSites;
+    private SaveToExcel saveToExcel;
     private final Timer timer = new Timer();
+
+    private List<String> list = new ArrayList<>();
+
+    public void setSaveToExcel(SaveToExcel saveToExcel){
+        this.saveToExcel = saveToExcel;
+    }
 
     public void setMainGUI(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
@@ -153,7 +162,11 @@ public class MainController implements MainView {
                 priceSettingsGUI.getOldPriceField(),
                 priceSettingsGUI.getCurrenceSymbolField()
         );
-        parseSites.runParsing(settings);
+        list = parseSites.runParsing(settings);
+    }
+
+    public void saveToExcel() {
+        saveToExcel.Save(list);
     }
 
     public void setBaseURL(String BASE_URL) {
